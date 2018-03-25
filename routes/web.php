@@ -11,7 +11,9 @@
 |
 */
 
-Route::get('/', function () {
+Route::get('/', 'HomeController@index')->name('home');
+
+Route::get('/somethingelse', function () {
     // $feed = new Feeds();
     // $feed->set_feed_url('https://gizmodo.com/rss');
     // dd($feed);
@@ -26,7 +28,8 @@ Route::get('/', function () {
     $newFeed->set_cache_location($cacheFile);
     $newFeed->set_feed_url('https://forums.redflagdeals.com/feed/forum/9');
     $newFeed->init();
-    $item = $newFeed->get_items()[1];
-    dd($item->get_title(), $item->get_date(), $item->get_content());
+    $item = $newFeed->get_items()[0];
+    $tag = $item->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category');
+    dd($tag, $item->get_author(), $item->get_title(), $item->get_date(), $item->get_content());
     return view('welcome');
 });
