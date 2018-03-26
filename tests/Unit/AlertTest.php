@@ -29,7 +29,7 @@ class AlertTest extends TestCase
         $userAlert = $user->alerts->first();
 
         $this->assertNotEmpty($userAlert->name);
-        $this->assertNotEmpty($userAlert->search_term);
+        $this->assertNotEmpty($userAlert->keywords);
 
     } 
 }

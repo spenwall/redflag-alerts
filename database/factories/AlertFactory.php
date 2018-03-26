@@ -16,6 +16,6 @@ use Faker\Generator as Faker;
 $factory->define(App\Alert::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
-        'search_term' => $faker->word,
+        'keywords' => $faker->word,
     ];
 });

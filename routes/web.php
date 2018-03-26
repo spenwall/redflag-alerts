@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AlertController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,6 +15,8 @@ use App\Http\Controllers\HomeController;
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/alerts/create', 'AlertController@create')->name('create-alert');
+Route::get('/alerts', 'AlertController@index')->name('alerts');
 // Route::get('/', function () {
 //     // $feed = new Feeds();
 //     // $feed->set_feed_url('https://gizmodo.com/rss');

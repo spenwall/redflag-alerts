@@ -25,6 +25,7 @@ class AlertController extends Controller
     public function create()
     {
         //
+        return view('create-alert');
     }
 
     /**
@@ -36,6 +37,7 @@ class AlertController extends Controller
     public function store(Request $request)
     {
         //
+        
     }
 
     /**
