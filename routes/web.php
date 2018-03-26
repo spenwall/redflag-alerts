@@ -15,7 +15,7 @@ Route::get('/', function () {
     // $feed = new Feeds();
     // $feed->set_feed_url('https://gizmodo.com/rss');
     // dd($feed);
-    $cacheFile = __DIR__ . '\\..\\cache\\';
+    $cacheFile = __DIR__ . '/../cache';
     $newFeed = new SimplePie();
     $newFeed->set_curl_options(
         array(
@@ -27,6 +27,6 @@ Route::get('/', function () {
     $newFeed->set_feed_url('https://forums.redflagdeals.com/feed/forum/9');
     $newFeed->init();
     $item = $newFeed->get_items()[1];
-    dd($item->get_title(), $item->get_date(), $item->get_content());
+    dd($item->get_source(),$item->get_title(), $item->get_date(), $item->get_content());
     return view('welcome');
 });
