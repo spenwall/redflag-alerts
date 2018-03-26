@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 
 use App\Alert;
 use Illuminate\Http\Request;
@@ -10,11 +11,16 @@ class AlertController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Respons
      */
     public function index()
     {
         //
+        $user = Auth::user();
+        $alerts = $user->alerts;
+
+        
+        return view('alerts', ['alerts' => $alerts]);
     }
 
     /**
@@ -37,7 +43,13 @@ class AlertController extends Controller
     public function store(Request $request)
     {
         //
-        
+        $alert = new Alert;
+        $alert->user_id = Auth::user()->id;
+        $alert->name = $request->name;
+        $alert->keywords = $request->keywords;
+        $alert->save();
+
+        dd($alert);
     }
 
     /**
