@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -11,22 +13,26 @@
 |
 */
 
-Route::get('/', function () {
-    // $feed = new Feeds();
-    // $feed->set_feed_url('https://gizmodo.com/rss');
-    // dd($feed);
-    $cacheFile = __DIR__ . '/../cache';
-    $newFeed = new SimplePie();
-    $newFeed->set_curl_options(
-        array(
-            CURLOPT_SSL_VERIFYHOST => false,
-            CURLOPT_SSL_VERIFYPEER => false
-        )
-    );
-    $newFeed->set_cache_location($cacheFile);
-    $newFeed->set_feed_url('https://forums.redflagdeals.com/feed/forum/9');
-    $newFeed->init();
-    $item = $newFeed->get_items()[1];
-    dd($item->get_source(),$item->get_title(), $item->get_date(), $item->get_content());
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index')->name('home');
+// Route::get('/', function () {
+//     // $feed = new Feeds();
+//     // $feed->set_feed_url('https://gizmodo.com/rss');
+//     // dd($feed);
+//     $cacheFile = __DIR__ . '/../cache';
+//     $newFeed = new SimplePie();
+//     $newFeed->set_curl_options(
+//         array(
+//             CURLOPT_SSL_VERIFYHOST => false,
+//             CURLOPT_SSL_VERIFYPEER => false
+//         )
+//     );
+//     $newFeed->set_cache_location($cacheFile);
+//     $newFeed->set_feed_url('https://forums.redflagdeals.com/feed/forum/9');
+//     $newFeed->init();
+//     $item = $newFeed->get_items()[1];
+//     dd($item->get_source(),$item->get_title(), $item->get_date(), $item->get_content());
+//     return view('welcome');
+// });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
