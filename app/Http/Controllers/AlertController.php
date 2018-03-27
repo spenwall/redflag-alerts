@@ -43,13 +43,19 @@ class AlertController extends Controller
     public function store(Request $request)
     {
         //
-        $alert = new Alert;
-        $alert->user_id = Auth::user()->id;
-        $alert->name = $request->name;
-        $alert->keywords = $request->keywords;
-        $alert->save();
-
-        dd($alert);
+        //check for duplicates too
+        $user = Auth::user();
+        $alerts = $user->alerts;
+        if (!$alerts->where('keywords', $request->keywords)->count()) {
+            $alert = new Alert;
+            $alert->user_id = Auth::user()->id;
+            $alert->name = $request->name;
+            $alert->keywords = $request->keywords;
+            $alert->save();
+            $user = $user->fresh();
+            $alerts = $user->alerts;
+        }
+        return view('alerts', ['alerts' => $alerts]);
     }
 
     /**
