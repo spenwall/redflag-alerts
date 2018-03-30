@@ -9,6 +9,16 @@ use Illuminate\Http\Request;
 class AlertController extends Controller
 {
     /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Respons
@@ -46,16 +56,17 @@ class AlertController extends Controller
         //check for duplicates too
         $user = Auth::user();
         $alerts = $user->alerts;
+        $duplicate = true;
         if (!$alerts->where('keywords', $request->keywords)->count()) {
-            $alert = new Alert;
-            $alert->user_id = Auth::user()->id;
-            $alert->name = $request->name;
-            $alert->keywords = $request->keywords;
+            $alert = new Alert(['name' => $request->name, 
+                                'user_id' => $user->id, 
+                                'keywords' => $request->keywords]);
             $alert->save();
             $user = $user->fresh();
             $alerts = $user->alerts;
+            $duplicate = false;
         }
-        return view('alerts', ['alerts' => $alerts]);
+        return view('alerts', ['alerts' => $alerts, 'duplicate' => $duplicate]);
     }
 
     /**

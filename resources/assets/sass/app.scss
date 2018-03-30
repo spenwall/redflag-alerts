@@ -12,3 +12,35 @@
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
+.alert-name-title {
+  font-weight: 700;
+}
+
+.alert-keywords-title {
+  font-weight: 700;
+}
+
+.alert-list {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-gap: 10px;
+}
+
+.alert-item {
+  background-color: #179CD1;
+  color: #fff;
+  padding: 10px;
+  font-size: 100%;
+}
+
+.alert-title {
+  background-color: #007486;
+  color: #fff;
+  padding: 10px 10px 5px 10px;
+}
+
+.duplicate {
+  color: #FF1939;
+  padding: 10px;
+}
