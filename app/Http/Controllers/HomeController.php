@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Goutte\Client;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,18 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $client = new Client();
+        // $crawler = $client->request('GET', 'https://forums.redflagdeals.com/hot-deals-f9/?st=1&rfd_sk=tt');
+        // $nodes = $crawler->filter('.topictitle');
+        // $values = $nodes->each( 
+        //     function ($node, $i) {
+        //         if (stripos($node->text(), 'burnout')) {
+        //             var_dump($node->text());
+        //         }
+        //         // var_dump($node->children()->last()->link()->getUri());
+        //     }
+        // );
+        // dd('end');
         return view('home');
     }
 }

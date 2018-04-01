@@ -30,7 +30,7 @@ class AlertController extends Controller
         $alerts = $user->alerts;
 
         
-        return view('alerts', ['alerts' => $alerts]);
+        return view('alerts', ['alerts' => $alerts, 'duplicate' => false]);
     }
 
     /**
