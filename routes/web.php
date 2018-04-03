@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\AlertController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,24 +15,28 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/alerts/create', 'AlertController@create')->name('create-alert');
+Route::get('/alerts', 'AlertController@index')->name('alerts');
+Route::post('/alerts', 'AlertController@store')->name('store-alert');
+// Route::get('/', function () {
+//     // $feed = new Feeds();
+//     // $feed->set_feed_url('https://gizmodo.com/rss');
+//     // dd($feed);
+//     $cacheFile = __DIR__ . '/../cache';
+//     $newFeed = new SimplePie();
+//     $newFeed->set_curl_options(
+//         array(
+//             CURLOPT_SSL_VERIFYHOST => false,
+//             CURLOPT_SSL_VERIFYPEER => false
+//         )
+//     );
+//     $newFeed->set_cache_location($cacheFile);
+//     $newFeed->set_feed_url('https://forums.redflagdeals.com/feed/forum/9');
+//     $newFeed->init();
+//     $item = $newFeed->get_items()[1];
+//     dd($item->get_source(),$item->get_title(), $item->get_date(), $item->get_content());
+//     return view('welcome');
+// });
+Auth::routes();
 
-Route::get('/somethingelse', function () {
-    // $feed = new Feeds();
-    // $feed->set_feed_url('https://gizmodo.com/rss');
-    // dd($feed);
-    $cacheFile = __DIR__ . '\\..\\cache\\';
-    $newFeed = new SimplePie();
-    $newFeed->set_curl_options(
-        array(
-            CURLOPT_SSL_VERIFYHOST => false,
-            CURLOPT_SSL_VERIFYPEER => false
-        )
-    );
-    $newFeed->set_cache_location($cacheFile);
-    $newFeed->set_feed_url('https://forums.redflagdeals.com/feed/forum/9');
-    $newFeed->init();
-    $item = $newFeed->get_items()[0];
-    $tag = $item->get_item_tags(SIMPLEPIE_NAMESPACE_ATOM_10, 'category');
-    dd($tag, $item->get_author(), $item->get_title(), $item->get_date(), $item->get_content());
-    return view('welcome');
-});
+Route::get('/home', 'HomeController@index')->name('home');
