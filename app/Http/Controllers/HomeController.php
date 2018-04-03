@@ -10,8 +10,6 @@ class HomeController extends Controller
     
     public function index()
     {
-        $feed = new Feed();
-        dd($feed->getItems());
         // $cacheFile = __DIR__ . '\\..\\cache\\';
         // $newFeed = new SimplePie();
         // $newFeed->set_curl_options(
