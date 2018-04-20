@@ -21,6 +21,15 @@ class ScraperTest extends TestCase
     }
 
     /** @test */
+    public function scrape_a_page_and_store_results_in_post()
+    {
+        $scraper = new Scraper();
+        $scraper->storeNewPosts();
+        //scape a page and store any new posts
+        //Store any new posts
+    }
+
+    /** @test */
     public function scraper_can_search_for_the_off_keyword_for_the_main_page()
     {
         $scraper = new Scraper();

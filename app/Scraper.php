@@ -10,7 +10,7 @@ use PHPUnit\Framework\Constraint\IsNull;
 class Scraper extends Model
 {
     //
-    const HOT_DEALS = 'https://forums.redflagdeals.com/hot-deals-f9/';
+    const HOT_DEALS = 'https://forums.redflagdeals.com/hot-deals-f9/?st=0&rfd_sk=tt&sd=d';
 
     protected $mainPage;
 
@@ -20,23 +20,19 @@ class Scraper extends Model
     {
         $this->mainPage = $page;
         $this->scraperClient = new Client();
-        // $crawler = $client->request('GET', $this->scraperPage);
-        // $nodes = $crawler->filter('.topictitle');
-        // $values = $nodes->each( 
-        //     function ($node, $i) {
-        //         if (stripos($node->text(), 'burnout')) {
-        //             var_dump($node->text());
-        //         }
-        //         // var_dump($node->children()->last()->link()->getUri());
-        //     }
-        // );
-        // dd('end');
+    }
+    
+    public function storeNewPosts()
+    {
+        $pageCrawler = $this->scraperClient->request('GET', $this->mainPage);
+        $posts = $pageCrawler->filter('.row.topic')->extract(['data-thread-id']);
+        dd($posts);
     }
     
     public function searchPageForKeywords($words, $page = null)
     {
         if (is_null($page)) {
-            $page = $this->getMainPage();
+            $page = $this->mainPage;
         }
 
         $pageCrawler = $this->scraperClient->request('GET', $page);
@@ -50,6 +46,7 @@ class Scraper extends Model
                         return null;
                     }
                 }
+                // dd($node->children()->last()->text());
                 return $node;
             }
         );
@@ -67,7 +64,7 @@ class Scraper extends Model
         return $results;
     }
 
-    public function getMainPage()
+    protected function getMainPage()
     {
         return $this->mainPage;
     }
