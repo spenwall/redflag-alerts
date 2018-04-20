@@ -25,8 +25,16 @@ class Scraper extends Model
     public function storeNewPosts()
     {
         $pageCrawler = $this->scraperClient->request('GET', $this->mainPage);
-        $posts = $pageCrawler->filter('.row.topic')->extract(['data-thread-id']);
-        dd($posts);
+        $posts = $pageCrawler->filter('.row.topic');
+        $nodes = $posts->each(function ($node) {
+            $info = [];
+            $info['id'] = $node->extract(['data-thread-id'])[0];
+            $info['title'] = $node->filter('.topic_title_link')->text();
+            $info['date'] = $node->filter('.first-post-time')->text();
+            $info['url'] = $node->filter('.topic_title_link')->extract(['href'])[0];
+            return $info;
+        });
+        dd($nodes);
     }
     
     public function searchPageForKeywords($words, $page = null)
