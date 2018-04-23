@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Goutte\Client;
 use App\User;
 use PHPUnit\Framework\Constraint\IsNull;
+use App\Posts;
 
 class Scraper extends Model
 {
@@ -25,16 +26,41 @@ class Scraper extends Model
     public function storeNewPosts()
     {
         $pageCrawler = $this->scraperClient->request('GET', $this->mainPage);
-        $posts = $pageCrawler->filter('.row.topic');
-        $nodes = $posts->each(function ($node) {
+        $nodes = $pageCrawler->filter('.row.topic');
+        $posts = $this->getPostInfo($nodes);
+        foreach ($posts as $post) {
+            $found = Posts::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
+        }
+        dd(Posts::all());
+    }
+
+    private function getPostInfo($nodes)
+    {
+        if (is_null($nodes)) {
+            return null;
+        }
+
+        $posts = $nodes->each(function ($node) {
             $info = [];
-            $info['id'] = $node->extract(['data-thread-id'])[0];
-            $info['title'] = $node->filter('.topic_title_link')->text();
-            $info['date'] = $node->filter('.first-post-time')->text();
-            $info['url'] = $node->filter('.topic_title_link')->extract(['href'])[0];
+            $info['thread-id'] = $node->extract(['data-thread-id'])[0];
+            $info['title'] = str_replace("\n", "", $node->filter('.topic_title_link')->text());
+            $info['post-date'] = $node->filter('.first-post-time')->text();
+            $link = $node->filter('.topic_title_link')->link();
+            $info['link'] = $link->getUri();
+            $info = $this->linkInfo($link, $info);
             return $info;
+            // $post = $this->scraperClient->click($link);
+            // $this->getPostInfo($post);
         });
-        dd($nodes);
+
+        return $posts;
+    }
+    
+    protected function linkInfo($link, $info)
+    {
+       $page = $this->scraperClient->click($link);
+       $postInfo = $page->filter('.post_offer_fields');
+       dd(strip_tags(str_replace("\n", "", $postInfo->html())));
     }
     
     public function searchPageForKeywords($words, $page = null)

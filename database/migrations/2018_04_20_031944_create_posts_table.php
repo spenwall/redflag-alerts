@@ -15,10 +15,10 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('thread-id')->unique();
-            $table->varchar('title');
-            $table->varchar('date');
-            $table->varchar('link');
+            $table->integer('thread-id');
+            $table->string('title');
+            $table->string('post-date')->nullable($value = true);
+            $table->string('link');
             $table->timestamps();
         });
     }
