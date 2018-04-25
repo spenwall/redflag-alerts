@@ -17,8 +17,13 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->integer('thread-id');
             $table->string('title');
-            $table->string('post-date')->nullable($value = true);
+            $table->string('post-date')->nullable();
             $table->string('link');
+            $table->string('deal-link')->nullable();
+            $table->string('price')->nullable();
+            $table->string('savings')->nullable();
+            $table->string('retailer')->nullable();
+            $table->string('expiry')->nullable();
             $table->timestamps();
         });
     }

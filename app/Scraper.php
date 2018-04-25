@@ -26,8 +26,8 @@ class Scraper extends Model
     public function storeNewPosts()
     {
         $pageCrawler = $this->scraperClient->request('GET', $this->mainPage);
-        $nodes = $pageCrawler->filter('.row.topic');
-        $posts = $this->getPostInfo($nodes);
+        $linkNodes = $pageCrawler->filter('.row.topic');
+        $posts = $this->getPostInfo($linkNodes);
         foreach ($posts as $post) {
             $found = Posts::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
         }
@@ -47,26 +47,56 @@ class Scraper extends Model
             $info['post-date'] = $node->filter('.first-post-time')->text();
             $link = $node->filter('.topic_title_link')->link();
             $info['link'] = $link->getUri();
-            $info = $this->linkInfo($link, $info);
+            $info = $this->postInfo($link, $info);
             return $info;
-            // $post = $this->scraperClient->click($link);
-            // $this->getPostInfo($post);
         });
-
         return $posts;
     }
     
-    protected function linkInfo($link, $info)
+    protected function postInfo($link, $info)
     {
-       $page = $this->scraperClient->click($link);
-       $postInfo = $page->filter('.post_offer_fields');
-       dd(strip_tags(str_replace("\n", "", $postInfo->html())));
+        $page = $this->scraperClient->click($link);
+        $infoTitles = $page->filter('.post_offer_fields dt');
+        $infoTags = $page->filter('.post_offer_fields dd');
+
+        $count = $infoTitles->count();
+        for ($i = 0; $i < $count; $i++) {
+            $title = $infoTitles->getNode($i);
+            $tag = $infoTags->getNode($i);       
+            $info = $this->seperateInfo($title, $tag, $info);     
+        }
+        return $info;
     }
-    
-    public function searchPageForKeywords($words, $page = null)
+
+    protected function seperateInfo($title, $tag, $info)
     {
-        if (is_null($page)) {
-            $page = $this->mainPage;
+        switch ($title->textContent) {
+            case 'Deal Link:':
+                $info['deal-link'] = $tag->firstChild->getAttribute('href');
+                break;
+            case 'Price:':
+                $info['price'] = $tag->textContent;
+                break;
+            case 'Savings:':
+                $info['savings'] = $tag->textContent;
+                break;
+            case 'Retailer:':
+                $info['retailer'] = $tag->textContent;
+                break;
+            case 'Expiry:':
+                $info['expiry'] = $tag->textContent;
+                break;
+            default:
+                break;
+        }
+        return $info;
+    }
+
+
+public function searchPageForKeywords($words, $page = null)
+{
+    if (is_null($page)) {
+        $page = $this->mainPage;
         }
 
         $pageCrawler = $this->scraperClient->request('GET', $page);
