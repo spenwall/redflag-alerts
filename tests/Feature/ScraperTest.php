@@ -6,8 +6,6 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Scraper;
-use App\User;
-use App\Alert;
 use App\Posts;
 use SebastianBergmann\Comparator\Factory;
 
