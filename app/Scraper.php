@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 use Goutte\Client;
 use App\User;
 use PHPUnit\Framework\Constraint\IsNull;
-use App\Posts;
+use App\Post;
 
 class Scraper extends Model
 {
     //
     const HOT_DEALS = 'https://forums.redflagdeals.com/hot-deals-f9/?rfd_sk=tt';
 
-    public function storeNewPosts($page = self::HOT_DEALS)
+    public function storeNewPost($page = self::HOT_DEALS)
     {
         $client = new Client();
         $pageCrawler = $client->request('GET', $page);
@@ -21,7 +21,7 @@ class Scraper extends Model
        
         $posts = $this->getPostInfo($linkNodes);
         foreach ((array)$posts as $post) {
-            $found = Posts::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
+            $found = Post::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
         }
         return true;
     }
@@ -34,7 +34,7 @@ class Scraper extends Model
 
         $posts = $nodes->each(function ($node) {
             $moved = $node->filter('.moved')->count();
-            $result = Posts::where('thread-id', $node->extract(['data-thread-id'])[0])->first();
+            $result = Post::where('thread-id', $node->extract(['data-thread-id'])[0])->first();
             if ($result || $moved) {
                 return;
             }

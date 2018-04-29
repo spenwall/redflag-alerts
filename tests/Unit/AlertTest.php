@@ -3,6 +3,8 @@
 use Tests\TestCase;
 use App\Alert;
 use App\User;
+use App\Post;
+use App\Scraper;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class AlertTest extends TestCase
@@ -32,4 +34,25 @@ class AlertTest extends TestCase
         $this->assertNotEmpty($userAlert->keywords);
 
     } 
+
+    /** @test */
+    public function an_Alert_can_find_a_post()
+    {
+        $user = factory(User::class)->create();
+
+        $Alert = factory(Alert::class)->create([
+            'user_id' => $user->id, 'keywords' => 'off'
+        ]);
+
+        $userAlert = $user->alerts->where('keywords', 'off')->first();
+
+        $scraper = new Scraper();
+        $scraper->storeNewPost();
+
+        $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->first();
+
+        $this->assertNotEmpty($posts);
+
+    }
+    
 }

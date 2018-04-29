@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Scraper;
-use App\Posts;
+use App\Post;
 use SebastianBergmann\Comparator\Factory;
 
 class ScraperTest extends TestCase
@@ -23,8 +23,8 @@ class ScraperTest extends TestCase
     public function scrape_a_page_and_store_results_in_post()
     {
         $scraper = new Scraper();
-        $scraper->storeNewPosts();
+        $scraper->storeNewPost();
         
-        $this->assertNotNull(Posts::all());
+        $this->assertNotNull(Post::all());
     }
 }
