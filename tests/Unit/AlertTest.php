@@ -36,7 +36,7 @@ class AlertTest extends TestCase
     } 
 
     /** @test */
-    public function an_Alert_can_find_a_post()
+    public function an_Alert_can_join_posts()
     {
         $user = factory(User::class)->create();
 
