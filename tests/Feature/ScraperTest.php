@@ -6,8 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Scraper;
-use App\User;
-use App\Alert;
+use App\Post;
 use SebastianBergmann\Comparator\Factory;
 
 class ScraperTest extends TestCase
@@ -24,38 +23,8 @@ class ScraperTest extends TestCase
     public function scrape_a_page_and_store_results_in_post()
     {
         $scraper = new Scraper();
-        $scraper->storeNewPosts();
-        //scape a page and store any new posts
-        //Store any new posts
-    }
-
-    /** @test */
-    public function scraper_can_search_for_the_off_keyword_for_the_main_page()
-    {
-        $scraper = new Scraper();
-
-        $results = $scraper->searchPageForKeywords('off');
-
-        $this->assertNotEmpty($results);
-    }
-
-    /** @test */
-    public function scraper_can_search_all_user_alerts_for_main_page()
-    {
-        $user = factory(User::class)->create();
-        $alerts = factory(Alert::class)->create([
-            'user_id' => $user->id,
-            'keywords' => 'off',
-        ]);
-        $alerts = factory(Alert::class)->create([
-            'user_id' => $user->id,
-            'keywords' => 'free',
-        ]);
-
-        $scraper = new Scraper();
+        $scraper->storeNewPost();
         
-        $results = $scraper->searchUserAlerts($user);
-
-        $this->assertNotEmpty($results);
+        $this->assertNotNull(Post::all());
     }
 }

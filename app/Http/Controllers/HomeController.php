@@ -20,9 +20,6 @@ class HomeController extends Controller
   
     public function index()
     {
-        $scraper = new Scraper();
-        $scraper->storeNewPosts();
-        dd($keywords);
         return view('home');
     }
 }
