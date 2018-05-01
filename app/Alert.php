@@ -19,4 +19,13 @@ class Alert extends Model
         return $this->belongsToMany(Post::class);
     }
     
+    public function addPosts()
+    {
+        $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->get();
+        $postCount = $posts->count();
+
+        foreach ($posts as $post) {
+            $alert->posts()->attach($post);
+        }
+    }
 }

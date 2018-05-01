@@ -40,7 +40,7 @@ class AlertTest extends TestCase
     {
         $user = factory(User::class)->create();
 
-        $Alert = factory(Alert::class)->create([
+        $alert = factory(Alert::class)->create([
             'user_id' => $user->id, 'keywords' => 'off'
         ]);
 
@@ -49,9 +49,17 @@ class AlertTest extends TestCase
         $scraper = new Scraper();
         $scraper->storeNewPost();
 
-        $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->first();
+        $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->get();
+        $postCount = $posts->count();
 
-        $this->assertNotEmpty($posts);
+        foreach ($posts as $post) {
+            $alert->posts()->attach($post);
+        }
+
+        $alertPosts = $alert->posts()->count();
+
+        $this->assertEquals($postCount, $alertPosts);
+        $this->assertContains('off', strtolower($alert->posts()->first()->title));
 
     }
     
