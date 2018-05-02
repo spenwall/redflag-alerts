@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Auth;
 
 use App\Alert;
+use App\Post;
 use Illuminate\Http\Request;
 
 class AlertController extends Controller
@@ -31,6 +32,22 @@ class AlertController extends Controller
 
         
         return view('alerts', ['alerts' => $alerts, 'duplicate' => false]);
+    }
+
+    /**
+     * get the results for an alert
+     * 
+     */
+    public function results($alertId)
+    {
+        if (is_null(Alert::find($alertId))) {
+            return response()->json(['success' => false]);
+        }
+
+        $alert = Alert::find($alertId)->first();
+        
+        $results = Post::search($alert->keywords)->get();
+        return response()->json(['success' => true, 'data' => $results]);
     }
 
     /**
