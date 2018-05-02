@@ -16,7 +16,7 @@
         @foreach ($alerts as $alert)
         <div class="alert-list">
             <div class="alert-item alert-name">{{ $alert->name }}</div>
-            <div v-on:click="addCounter('spencer')" class="alert-item alert-keyword">{{ $alert->keywords }}</div>
+            <div v-on:click="addCounter" class="alert-item alert-keyword">{{ $alert->keywords }}</div>
         </div>
         <div v-for="count in counter" class="match">
             @{{ count }}
@@ -28,20 +28,26 @@
 </div>
 
 <script>
-    
+
     new Vue({
         el: "#results",
 
         data: {
-            counter: []
+            counter: [],
+            errors: []
         },
         
         methods: {
 
-            addCounter(add) {
+            addCounter() {
                 
-                this.counter.push(add)
-
+                axios.get('alerts/results/1')
+                    .then(response => (
+                        this.counter = response.data
+                    ))
+                    .catch(e => {
+                        this.errors.push(e)
+                    })
             }
 
         }

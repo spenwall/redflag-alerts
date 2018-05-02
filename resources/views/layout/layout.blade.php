@@ -13,6 +13,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
         <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
     </head>
     <body>
 
