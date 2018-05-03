@@ -16,10 +16,10 @@
         @foreach ($alerts as $alert)
         <div class="alert-list">
             <div class="alert-item alert-name">{{ $alert->name }}</div>
-            <div v-on:click="addCounter" class="alert-item alert-keyword">{{ $alert->keywords }}</div>
+            <div v-on:click="getPosts({{ $alert->id }})" class="alert-item alert-keyword">{{ $alert->keywords }}</div>
         </div>
-        <div v-for="count in counter" class="match">
-            @{{ count }}
+        <div id="{{ $alert->id }}" v-for="post in posts" class="match">
+            <a :href="post.link" v-text="post.title"></a>
         </div>
         @endforeach
     </div>
@@ -33,17 +33,17 @@
         el: "#results",
 
         data: {
-            counter: [],
+            posts: [],
             errors: []
         },
         
         methods: {
 
-            addCounter() {
+            getPosts(alertId) {
                 
-                axios.get('alerts/results/1')
+                axios.get('alerts/results/'+alertId)
                     .then(response => (
-                        this.counter = response.data
+                        this.posts = response.data.data
                     ))
                     .catch(e => {
                         this.errors.push(e)

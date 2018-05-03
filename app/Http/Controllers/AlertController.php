@@ -44,9 +44,9 @@ class AlertController extends Controller
             return response()->json(['success' => false]);
         }
 
-        $alert = Alert::find($alertId)->first();
-        
+        $alert = Alert::find($alertId);
         $results = Post::search($alert->keywords)->get();
+        
         return response()->json(['success' => true, 'data' => $results]);
     }
 
