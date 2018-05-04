@@ -18,4 +18,12 @@ class Post extends Model
         return $this->belongsToMany(Alert::class);
     }
     
+    public static function deleteAll()
+    {
+        $posts = Post::all();
+        foreach ($posts as $post) {
+            $post->delete();
+        }
+    }
+    
 }
