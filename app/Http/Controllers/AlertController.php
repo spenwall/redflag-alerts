@@ -48,7 +48,7 @@ class AlertController extends Controller
 
         $results = Post::search($alert->keywords)->get();
         
-        return response()->json(['success' => true, 'data' => $results]);
+        return response()->json(['success' => true, 'results' => $results]);
     }
 
     /**
