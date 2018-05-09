@@ -31,6 +31,7 @@ Vue.component('alert', {
             return { 
                 posts: [],
                 isLoading: false,
+                errors: '',
         }
     },
 
@@ -46,7 +47,8 @@ Vue.component('alert', {
                         this.isLoading = false
                     })
                     .catch(e => {
-                        this.errors.push(e)
+                        this.errors = 'Something went wrong please try again or contact the web admin'
+                        this.isLoading = false
                     })
         }
     },
@@ -62,9 +64,10 @@ Vue.component('alert', {
                 <div class="bar"></div>
                 <div class="bar"></div>
             </div>
-                <div v-for="post in posts" class="match">
+            <div v-for="post in posts" class="match">
                 <a :href="post.link" v-text="post.title" target="_blank"></a>
             </div>
+            <div class="error" v-text="errors"></div>
         </div>
      `
 })
