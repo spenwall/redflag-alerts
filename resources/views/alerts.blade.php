@@ -14,11 +14,10 @@
         </div>
     
         @foreach ($alerts as $alert)
-        <div class="alert-list" ref="spencer">
-            <div class="alert-item alert-name">{{ $alert->name }}</div>
-            <div class="alert-item alert-keyword">{{ $alert->keywords }}</div>
-        </div>
-        <alert></alert>
+        <alert alert-id="{{ $alert->id }}" 
+            alert-name="{{ $alert->name }}" 
+            keywords="{{ $alert->keywords }}">
+        </alert>
         @endforeach
     </div
     <a href="{{ route('create-alert') }}"><div class="ion-android-add-circle add"></div></a>
@@ -30,16 +29,21 @@
 Vue.component('alert', {
     data: function () {
             return { 
-                posts: 0
+                posts: [],
+                isLoading: false,
         }
     },
 
+    props: ['alertId', 'alertName', 'keywords'],
+
     methods: {
 
-        alertPost(alertId) {
-            axios.get('alerts/results/'+alertId)
-                    .then((results, postName) => {
+        alertPosts() {
+            this.isLoading = true
+            axios.get('alerts/results/'+this.alertId)
+                    .then(results => {
                         this.posts = results.data.results
+                        this.isLoading = false
                     })
                     .catch(e => {
                         this.errors.push(e)
@@ -49,12 +53,18 @@ Vue.component('alert', {
 
     template: `
         <div>
-        <div v-on:click="alertPost(1)" class="match">
-        Click Me
-        </div> 
-        <div v-for="post in posts" class="match">
-            <a :href="post.link" v-text="post.title"></a>
-        </div>
+            <div class="alert-list" @click="alertPosts" ref="spencer">
+                <div class="alert-item alert-name" v-text="alertName"></div>
+                <div class="alert-item alert-keyword" v-text="keywords"></div>
+            </div>
+            <div class="load-bar" v-if="isLoading">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+                <div v-for="post in posts" class="match">
+                <a :href="post.link" v-text="post.title" target="_blank"></a>
+            </div>
         </div>
      `
 })
