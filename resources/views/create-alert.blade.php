@@ -15,7 +15,7 @@
                         <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Search Keywords">
                 </div>
                 
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary float-right">Submit</button>
             </form>
 </div>
 @endsection()
