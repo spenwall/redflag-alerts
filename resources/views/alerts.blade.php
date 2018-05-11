@@ -3,10 +3,13 @@
 
 @section('content')
 <div class="jumbotron">
+
     <h1>Alerts</h1>
+
     @if ($duplicate)
     <div class="duplicate">That is a duplicate entry</div>
     @endif
+
     <div id="results">
         <div class="alert-list">
             <div class="alert-title alert-name-title">Name</div>
@@ -19,96 +22,28 @@
             keywords="{{ $alert->keywords }}">
         </alert>
         @endforeach
-    </div
-    <a href="{{ route('create-alert') }}"><div class="ion-android-add-circle add"></div></a>
+
+    </div>
+
+    </a>
 
 </div>
 
-<script>
-
-Vue.component('alert', {
-    data: function () {
-            return { 
-                posts: [],
-                isLoading: false,
-                errors: '',
-        }
-    },
-
-    props: ['alertId', 'alertName', 'keywords'],
-
-    methods: {
-
-        alertPosts() {
-            this.isLoading = true
-            axios.get('alerts/results/'+this.alertId)
-                    .then(results => {
-                        this.posts = results.data.results
-                        this.isLoading = false
-                    })
-                    .catch(e => {
-                        this.errors = 'Something went wrong please try again or contact the web admin'
-                        this.isLoading = false
-                    })
-        }
-    },
-
-    template: `
-        <div>
-            <div class="alert-list" @click="alertPosts" ref="spencer">
-                <div class="alert-item alert-name" v-text="alertName"></div>
-                <div class="alert-item alert-keyword" v-text="keywords"></div>
-            </div>
-            <div class="load-bar" v-if="isLoading">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <div v-for="post in posts" class="match">
-                <a :href="post.link" v-text="post.title" target="_blank"></a>
-            </div>
-            <div class="error" v-text="errors"></div>
+<modal title="Add Alert">
+    <form method="POST" action="/alerts">
+        @csrf
+        <div class="form-group">
+                <label for="name">Alert Name</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Alert Name">
         </div>
-     `
-})
 
-    new Vue({
-        el: "#results",
-
-        data: {
-            @foreach($alerts as $alert)
-            posts{{ $alert->id }}: [],
-            @endforeach
-            errors: []
-        },
+        <div class="form-group">
+                <label for="keywords">Search Keywords</label>
+                <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Search Keywords">
+        </div>
         
-        methods: {
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</modal>
 
-            getPosts(postName, alertId) {
-                console.log(postName)
-                axios.get('alerts/results/'+alertId)
-                    .then((results, postName) => {
-                        this.posts5 = results.data.results
-                    })
-                    .catch(e => {
-                        this.errors.push(e)
-                    })
-            },
-            call(postName, data) {
-                console.log('alertId', postName)
-                console.log('data', data.data.results)
-                this.posts = data.data.results
-                console.log(this.posts)
-            }
-        }
-    })
-
-
-function call(postName, data) {
-    console.log('alertId', postName)
-    console.log('data', data.data.results)
-    this[postName] = data.data.results
-    console.log(this.post5)
-}
-</script>
 @endsection
