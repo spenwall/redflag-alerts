@@ -11,17 +11,25 @@ use App\Post;
 class Scraper extends Model
 {
     //
-    const HOT_DEALS = 'https://forums.redflagdeals.com/hot-deals-f9/?rfd_sk=tt';
+    const HOT_DEALS = 'https://forums.redflagdeals.com/hot-deals-f9/';
+    const QUERRY = '/?rfd_sk=tt';
 
-    public function storeNewPost($page = self::HOT_DEALS)
+    public function storeNewPost()
     {
-        $client = new Client();
-        $pageCrawler = $client->request('GET', $page);
-        $linkNodes = $pageCrawler->filter('.row.topic');
-       
-        $posts = $this->getPostInfo($linkNodes);
-        foreach ((array)$posts as $post) {
-            Post::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
+        for ($i = 1; $i < 5; $i++) {
+            $page = self::HOT_DEALS . $i . self::QUERRY;
+            echo $page.'<br>';
+            $client = new Client();
+            $pageCrawler = $client->request('GET', $page);
+            $linkNodes = $pageCrawler->filter('.row.topic');
+        
+            $posts = $this->getPostInfo($linkNodes);
+            foreach ((array)$posts as $post) {
+                $found = Post::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
+                if ($found) {
+                    return true;
+                }
+            }
         }
         return true;
     }
