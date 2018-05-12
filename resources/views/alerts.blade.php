@@ -1,6 +1,5 @@
 @extends('layout.layout')
 
-
 @section('content')
 <div class="jumbotron">
 
@@ -28,20 +27,7 @@
 </div>
 
 <modal title="Add alert">
-    <form method="POST" action="/alerts">
-        @csrf
-        <div class="form-group">
-                <label for="name">Alert Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Alert Name" required>
-        </div>
-
-        <div class="form-group">
-                <label for="keywords">Search Keywords</label>
-                <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Search Keywords" required>
-        </div>
-        
-        <button type="submit" class="btn btn-primary float-right">Submit</button>
-    </form>
+   <create-alert></create-alert> 
 </modal>
 
 @endsection

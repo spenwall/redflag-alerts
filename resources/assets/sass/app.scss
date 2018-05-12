@@ -36,6 +36,8 @@
   color: #fff;
   padding: 10px;
   font-size: 100%;
+  display: grid;
+  grid-template-columns: 20fr 1fr;
 }
 
 .alert-title {
@@ -96,4 +98,10 @@
 
 .error {
   color: red;
+}
+
+.post {
+  background-color: white;
+  padding: 5px;
+  margin: 5px;
 }
