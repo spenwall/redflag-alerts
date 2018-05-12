@@ -21,7 +21,7 @@ class Scraper extends Model
        
         $posts = $this->getPostInfo($linkNodes);
         foreach ((array)$posts as $post) {
-            $found = Post::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
+            Post::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
         }
         return true;
     }

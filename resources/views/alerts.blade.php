@@ -6,10 +6,6 @@
 
     <h1>Alerts</h1>
 
-    @if ($duplicate)
-    <div class="duplicate">That is a duplicate entry</div>
-    @endif
-
     <div id="results">
         <div class="alert-list">
             <div class="alert-title alert-name-title">Name</div>
@@ -36,12 +32,12 @@
         @csrf
         <div class="form-group">
                 <label for="name">Alert Name</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Alert Name">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Alert Name" required>
         </div>
 
         <div class="form-group">
                 <label for="keywords">Search Keywords</label>
-                <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Search Keywords">
+                <input type="text" class="form-control" id="keywords" name="keywords" placeholder="Search Keywords" required>
         </div>
         
         <button type="submit" class="btn btn-primary float-right">Submit</button>

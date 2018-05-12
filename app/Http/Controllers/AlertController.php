@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Alert;
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class AlertController extends Controller
 {
@@ -70,21 +71,25 @@ class AlertController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        //check for duplicates too
         $user = Auth::user();
+        //validate
+        $request->validate([
+            'name' => 'required|'.Rule::unique('alerts')->where(function ($query) use($user){
+                return $query->where('user_id', $user->id);
+            }),
+            'keywords' => 'required|'.Rule::unique('alerts')->where(function ($query) use($user){
+                return $query->where('user_id', $user->id);
+            }),
+        ]);
+
+        //check for duplicates too
+        $alert = new Alert(['name' => $request->name, 
+                            'user_id' => $user->id, 
+                            'keywords' => $request->keywords]);
+        $alert->save();
+        $user = $user->fresh();
         $alerts = $user->alerts;
-        $duplicate = true;
-        if (!$alerts->where('keywords', $request->keywords)->count()) {
-            $alert = new Alert(['name' => $request->name, 
-                                'user_id' => $user->id, 
-                                'keywords' => $request->keywords]);
-            $alert->save();
-            $user = $user->fresh();
-            $alerts = $user->alerts;
-            $duplicate = false;
-        }
-        return view('alerts', ['alerts' => $alerts, 'duplicate' => $duplicate]);
+        return view('alerts', ['alerts' => $alerts]);
     }
 
     /**
