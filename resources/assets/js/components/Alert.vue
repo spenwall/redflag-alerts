@@ -14,17 +14,27 @@
         </div>
         <div v-if="open" v-for="post in posts" :key="post.id" class="match">
             <div class="post">
-                <dl>
-                    <dt>Post Link</dt> 
-                    <dd><a :href="post.link" v-text="post.title" target="_blank"></a></dd>
-                    <dt>Retailer</dt>
-                    <dd><div v-text="post.retailer"></div></dd>
-                    <dt>Savings</dt>
-                    <dd><div v-text="post.savings"></div></dd>
-                    <dt>Price</dt>
-                    <dd><div v-text="post.price"></div></dd>
-                    <dt>Deal Link</dt>
-                    <dd><a :href="post.deal-link" target="_blank">Direct Link</a></dd>
+                <dl class="post-elements">
+                    <div class="post-title">
+                        <dt>Post Link</dt> 
+                        <dd><a :href="post.link" v-text="post.title" target="_blank"></a></dd>
+                    </div>
+                    <div>
+                        <dt>Retailer</dt>
+                        <dd><div v-text="post.retailer"></div></dd>
+                    </div>
+                    <div>
+                        <dt>Savings</dt>
+                        <dd><div v-text="post.savings"></div></dd>
+                    </div>
+                    <div>
+                        <dt>Price</dt>
+                        <dd><div v-text="post.price"></div></dd>
+                    </div>
+                    <div>
+                        <dt>Deal Link</dt>
+                        <dd><a :href="post.deal-link" target="_blank">Direct Link</a></dd>
+                    </div>
                 </dl>
             </div>
         </div>

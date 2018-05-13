@@ -105,3 +105,13 @@
   padding: 5px;
   margin: 5px;
 }
+
+.post-elements {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-gap: 10px;
+}
+
+.post-title {
+  grid-column: span 2;
+}
