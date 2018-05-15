@@ -15,11 +15,11 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('thread-id');
+            $table->integer('threadId');
             $table->string('title');
-            $table->string('post-date')->nullable();
+            $table->string('post_date')->nullable();
             $table->string('link');
-            $table->string('deal-link')->nullable();
+            $table->string('dealLink')->nullable();
             $table->string('price')->nullable();
             $table->string('savings')->nullable();
             $table->string('retailer')->nullable();

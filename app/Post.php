@@ -10,8 +10,8 @@ class Post extends Model
 {
     use Searchable;
     //
-    protected $fillable = ['thread-id', 'title', 'data', 'link',
-                            'deal-link', 'price', 'savings', 'retailer', 'expiry'];
+    protected $fillable = ['threadId', 'title', 'data', 'link',
+                            'dealLink', 'price', 'savings', 'retailer', 'expiry'];
 
     public function Alerts() 
     {

@@ -28,7 +28,7 @@ class Scraper extends Model
             $linkNodes = $pageCrawler->filter('.row.topic');
             $posts = $this->getPostInfo($linkNodes);
             foreach ((array)$posts as $post) {
-                $found = Post::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
+                $found = Post::FirstOrCreate(['threadId' => $post['threadId']], $post);
             }
         }
         return true;
@@ -42,7 +42,7 @@ class Scraper extends Model
 
         $posts = $nodes->each(function ($node) {
             $moved = $node->filter('.moved')->count();
-            $result = Post::where('thread-id', $node->extract(['data-thread-id'])[0])->first();
+            $result = Post::where('threadId', $node->extract(['data-thread-id'])[0])->first();
             if ($result || $moved) {
                 return;
             }
@@ -61,9 +61,9 @@ class Scraper extends Model
             return null;
         }
         $info = [];
-        $info['thread-id'] = $post->filter('#thread')->extract(['data-thread-id'])[0];
+        $info['threadId'] = $post->filter('#thread')->extract(['data-thread-id'])[0];
         $info['title'] = $post->filter('.thread_title')->text();
-        $info['post-date'] = $post->filter('.dateline_timestamp')->text();
+        $info['postDate'] = $post->filter('.dateline_timestamp')->text();
         $info['link'] = $post->getUri();
 
         $infoTitles = $post->filter('.post_offer_fields dt');
@@ -82,7 +82,7 @@ class Scraper extends Model
     {
         switch ($title->textContent) {
             case 'Deal Link:':
-                $info['deal-link'] = $tag->firstChild->getAttribute('href');
+                $info['dealLink'] = $tag->firstChild->getAttribute('href');
                 break;
             case 'Price:':
                 $info['price'] = $tag->textContent;

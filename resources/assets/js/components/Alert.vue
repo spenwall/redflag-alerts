@@ -21,7 +21,7 @@
             <div class="post">
                 <div class="post-elements">
                     <div class="post-title">
-                        <dd><a :href="post.link" v-text="post.title" target="_blank"></a></dd>
+                        <a :href="post.link" v-text="post.title" target="_blank"></a>
                     </div>
                     <div class="post-item">
                         <span>Retailer:</span> {{ post.retailer }}
@@ -33,7 +33,7 @@
                         <span>Price:</span> ${{ post.price }}
                     </div>
                     <div class="post-item">
-                        <span>Deal Link:</span> {{ post.deal-link }}
+                        <span><a :href="post.dealLink">Deal Link</a></span>
                     </div>
                 </div>
             </div>
