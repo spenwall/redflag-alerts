@@ -42,14 +42,11 @@ class AlertController extends Controller
     public function results($alertId)
     {
         if (is_null(Alert::find($alertId))) {
-            return response()->json(['success' => false]);
+            return ['error' => 'Alert Not Found'];
         }
-
         $alert = Alert::find($alertId);
-
-        $results = Post::search($alert->keywords)->get();
         
-        return response()->json(['success' => true, 'results' => $results]);
+        return Post::search($alert->keywords)->get();
     }
 
     public function delete($alertId)
@@ -110,7 +107,9 @@ class AlertController extends Controller
      */
     public function show(Alert $alert)
     {
-        //
+        $user = Auth::user();
+        
+        return $user->alerts()->get();
     }
 
     /**

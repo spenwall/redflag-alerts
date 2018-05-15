@@ -11,12 +11,7 @@
             <div class="alert-title alert-keywords-title">Keyword</div>
         </div>
     
-        @foreach ($alerts as $alert)
-        <alert-posts alert-id="{{ $alert->id }}" 
-            alert-name="{{ $alert->name }}" 
-            keywords="{{ $alert->keywords }}">
-        </alert-posts>
-        @endforeach
+        <alerts-view></alerts-view>
 
     </div>
 

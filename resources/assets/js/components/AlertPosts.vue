@@ -17,7 +17,7 @@
                 <button class="btn btn-outline-danger btn-sm">Delete</button>
             </a>
         </div>
-        <transition name="fade">
+        <transition-group name="fade">
             <div v-if="open" v-for="post in posts" :key="post.id" class="match">
                 <div class="post">
                     <div class="post-elements">
@@ -39,7 +39,7 @@
                     </div>
                 </div>
             </div>
-        </transition>
+        </transition-group>
         <div class="error" v-text="errors"></div>
         <modal :id="alertName" title="Delete Alert">
             <div class="delete-confirmation">Are you sure you want to delete <span>{{ this.alertName }}</span> alert?</div>
@@ -87,7 +87,7 @@ export default {
             this.isLoading = true
             axios.get('/alerts/results/'+this.alertId)
                     .then(results => {
-                        this.posts = results.data.results
+                        this.posts = results.data
                         this.isLoading = false
                     })
                     .catch(e => {

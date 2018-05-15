@@ -4,6 +4,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AlertControllere;
 use App\Scraper;
 use App\Post;
+use App\Http\Controllers\AlertController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,7 @@ use App\Post;
 Route::get('/', 'AlertController@index')->name('home');
 Route::get('/alerts/create', 'AlertController@create')->name('create-alert');
 Route::get('/alerts', 'AlertController@index')->name('alerts');
+Route::get('/alerts/show', 'AlertController@show')->name('show');
 Route::post('/alerts', 'AlertController@store')->name('store-alert');
 Route::get('/alerts/delete/{alertId}', 'AlertController@delete')->name('delete-alert');
 Route::get('/alerts/results/{alertId}', 'AlertController@results')->name('alert-results');
