@@ -12,10 +12,10 @@
         </div>
     
         @foreach ($alerts as $alert)
-        <alert alert-id="{{ $alert->id }}" 
+        <alert-posts alert-id="{{ $alert->id }}" 
             alert-name="{{ $alert->name }}" 
             keywords="{{ $alert->keywords }}">
-        </alert>
+        </alert-posts>
         @endforeach
 
     </div>

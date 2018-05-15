@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="alert-list" @click="alertPosts"> 
+        <div class="alert-list" @click="getAlertPosts"> 
             <div class="alert-item alert-name" v-text="alertName"></div>
             <div class="alert-item alert-keyword">
                 <div v-text="keywords"></div>
@@ -17,27 +17,29 @@
                 <button class="btn btn-outline-danger btn-sm">Delete</button>
             </a>
         </div>
-        <div v-if="open" v-for="post in posts" :key="post.id" class="match">
-            <div class="post">
-                <div class="post-elements">
-                    <div class="post-title">
-                        <a :href="post.link" v-text="post.title" target="_blank"></a>
-                    </div>
-                    <div class="post-item">
-                        <span>Retailer:</span> {{ post.retailer }}
-                    </div>
-                    <div class="post-item">
-                        <span>Savings:</span> {{ post.savings }}
-                    </div>
-                    <div class="post-item">
-                        <span>Price:</span> ${{ post.price }}
-                    </div>
-                    <div class="post-item">
-                        <span><a :href="post.dealLink">Deal Link</a></span>
+        <transition name="fade">
+            <div v-if="open" v-for="post in posts" :key="post.id" class="match">
+                <div class="post">
+                    <div class="post-elements">
+                        <div class="post-title">
+                            <a :href="post.link" v-text="post.title" target="_blank"></a>
+                        </div>
+                        <div class="post-item">
+                            <span>Retailer:</span> {{ post.retailer }}
+                        </div>
+                        <div class="post-item">
+                            <span>Savings:</span> {{ post.savings }}
+                        </div>
+                        <div class="post-item">
+                            <span>Price:</span> ${{ post.price }}
+                        </div>
+                        <div class="post-item">
+                            <span><a :href="post.dealLink" target="_blank">Deal Link</a></span>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </transition>
         <div class="error" v-text="errors"></div>
         <modal :id="alertName" title="Delete Alert">
             <div class="delete-confirmation">Are you sure you want to delete <span>{{ this.alertName }}</span> alert?</div>
@@ -74,7 +76,7 @@ export default {
 
     methods: {
 
-        alertPosts() {
+        getAlertPosts() {
             if (this.status === this.remove) {
                 this.status = this.add
                 this.open = false
@@ -106,3 +108,14 @@ export default {
     },
 }
 </script>
+
+<style>
+
+.fade-enter-active {
+    transition: opacity .5s;
+}
+
+.fade-enter {
+    opacity: 0;
+}
+</style>
