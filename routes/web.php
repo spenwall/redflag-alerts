@@ -16,7 +16,7 @@ use App\Post;
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'AlertController@index')->name('home');
 Route::get('/alerts/create', 'AlertController@create')->name('create-alert');
 Route::get('/alerts', 'AlertController@index')->name('alerts');
 Route::post('/alerts', 'AlertController@store')->name('store-alert');
@@ -35,4 +35,4 @@ Route::get('/scraper/update', function() {
 });
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'AlertController@index')->name('home');
