@@ -52,6 +52,13 @@ class AlertController extends Controller
         return response()->json(['success' => true, 'results' => $results]);
     }
 
+    public function delete($alertId)
+    {
+        $user = Auth::user();
+
+        return Alert::where(['user_id' => $user->id, 'id' => $alertId])->delete();
+    }
+
     /**
      * Show the form for creating a new resource.
      *

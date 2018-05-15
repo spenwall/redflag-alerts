@@ -12,23 +12,23 @@ class Scraper extends Model
 {
     //
     const HOT_DEALS = 'https://forums.redflagdeals.com/hot-deals-f9/';
-    const QUERRY = '/?rfd_sk=tt';
+    const QUERRY = '?rfd_sk=tt';
 
     public function storeNewPost()
     {
         for ($i = 1; $i < 5; $i++) {
-            $page = self::HOT_DEALS . $i . self::QUERRY;
+            $pageNumber = '';
+            if ($i > 1) {
+                $pageNumber = $i .'/';
+            }
+            $page = self::HOT_DEALS . $pageNumber . self::QUERRY;
             echo $page.'<br>';
             $client = new Client();
             $pageCrawler = $client->request('GET', $page);
             $linkNodes = $pageCrawler->filter('.row.topic');
-        
             $posts = $this->getPostInfo($linkNodes);
             foreach ((array)$posts as $post) {
                 $found = Post::FirstOrCreate(['thread-id' => $post['thread-id']], $post);
-                if ($found) {
-                    return true;
-                }
             }
         }
         return true;

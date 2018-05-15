@@ -20,13 +20,13 @@
 
     </div>
 
-    <a href="{{ route('create-alert') }}" data-toggle="modal" data-target="#exampleModal">
+    <a data-toggle="modal" data-target="#add-alert">
         <div class="ion-android-add-circle add"></div>
     </a>
 
 </div>
 
-<modal title="Add alert">
+<modal id="add-alert" title="Add alert">
    <create-alert></create-alert> 
 </modal>
 

@@ -114,4 +114,22 @@
 
 .post-title {
   grid-column: span 2;
+  background-color: #cdf3f9;
+}
+
+.post-item {
+  span {
+    font-weight: 700;
+  }
+}
+
+.delete {
+  padding-right: 5px;
+  margin: 3px;
+}
+
+.delete-confirmation {
+  span {
+    font-weight: 700;
+  }
 }

@@ -12,33 +12,37 @@
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
+        <div v-if="open" class="delete">
+            <a data-toggle="modal" :data-target="alertModal">
+                <button class="btn btn-outline-danger btn-sm">Delete</button>
+            </a>
+        </div>
         <div v-if="open" v-for="post in posts" :key="post.id" class="match">
             <div class="post">
-                <dl class="post-elements">
+                <div class="post-elements">
                     <div class="post-title">
-                        <dt>Post Link</dt> 
                         <dd><a :href="post.link" v-text="post.title" target="_blank"></a></dd>
                     </div>
-                    <div>
-                        <dt>Retailer</dt>
-                        <dd><div v-text="post.retailer"></div></dd>
+                    <div class="post-item">
+                        <span>Retailer:</span> {{ post.retailer }}
                     </div>
-                    <div>
-                        <dt>Savings</dt>
-                        <dd><div v-text="post.savings"></div></dd>
+                    <div class="post-item">
+                        <span>Savings:</span> {{ post.savings }}
                     </div>
-                    <div>
-                        <dt>Price</dt>
-                        <dd><div v-text="post.price"></div></dd>
+                    <div class="post-item">
+                        <span>Price:</span> ${{ post.price }}
                     </div>
-                    <div>
-                        <dt>Deal Link</dt>
-                        <dd><a :href="post.deal-link" target="_blank">Direct Link</a></dd>
+                    <div class="post-item">
+                        <span>Deal Link:</span> {{ post.deal-link }}
                     </div>
-                </dl>
+                </div>
             </div>
         </div>
         <div class="error" v-text="errors"></div>
+        <modal :id="alertName" title="Delete Alert">
+            <div class="delete-confirmation">Are you sure you want to delete <span>{{ this.alertName }}</span> alert?</div>
+            <button @click="deleteAlert" class="btn btn-danger float-right">Delete</button>
+        </modal>
     </div>
 </template>
 
@@ -53,6 +57,12 @@ export default {
                 add: 'ion-android-add',
                 remove: 'ion-android-remove',
                 open: false,
+        }
+    },
+
+    computed: {
+        alertModal: function() {
+            return '#' + this.alertName
         }
     },
 
@@ -81,6 +91,16 @@ export default {
                     .catch(e => {
                         this.errors = 'Something went wrong please try again or contact the web admin'
                         this.isLoading = false
+                    })
+        },
+
+        deleteAlert() {
+            axios.get('/alerts/delete/'+this.alertId)
+                    .then(results => {
+                        location.reload()
+                    })
+                    .catch(e => {
+                        $this.errors = 'Something went wrong please try again'
                     })
         }
     },
