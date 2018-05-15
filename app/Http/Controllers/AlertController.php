@@ -66,7 +66,6 @@ class AlertController extends Controller
      */
     public function create()
     {
-        //
         return view('create-alert');
     }
 
@@ -81,12 +80,16 @@ class AlertController extends Controller
         $user = Auth::user();
         //validate
         $request->validate([
-            'name' => 'required|'.Rule::unique('alerts')->where(function ($query) use($user){
-                return $query->where('user_id', $user->id);
-            }),
-            'keywords' => 'required|'.Rule::unique('alerts')->where(function ($query) use($user){
-                return $query->where('user_id', $user->id);
-            }),
+            'name' => ['required',
+                        Rule::unique('Alerts')->where(function ($query) use($user){
+                           return $query->where('user_id', $user->id);
+                        })
+                    ],
+            'keywords' => ['required',
+                            Rule::unique('Alerts')->where(function ($query) use($user){
+                                return $query->where('user_id', $user->id);
+                            })
+                        ]
         ]);
 
         //check for duplicates too
