@@ -75,6 +75,7 @@ class AlertController extends Controller
     public function store(Request $request)
     {
         $user = Auth::user();
+
         //validate
         $request->validate([
             'name' => ['required',
@@ -105,7 +106,7 @@ class AlertController extends Controller
      * @param  \App\Alert  $alert
      * @return \Illuminate\Http\Response
      */
-    public function show(Alert $alert)
+    public function show()
     {
         $user = Auth::user();
         

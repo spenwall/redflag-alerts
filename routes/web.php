@@ -17,13 +17,17 @@ use App\Http\Controllers\AlertController;
 |
 */
 
+Route::get('/home', 'AlertController@index')->name('home');
 Route::get('/', 'AlertController@index')->name('home');
+
 Route::get('/alerts/create', 'AlertController@create')->name('create-alert');
 Route::get('/alerts', 'AlertController@index')->name('alerts');
 Route::get('/alerts/show', 'AlertController@show')->name('show');
 Route::post('/alerts', 'AlertController@store')->name('store-alert');
 Route::get('/alerts/delete/{alertId}', 'AlertController@delete')->name('delete-alert');
 Route::get('/alerts/results/{alertId}', 'AlertController@results')->name('alert-results');
+
+
 Route::get('/scraper/refresh', function() {
     $scraper = new Scraper();
     $posts = Post::deleteAll();
@@ -37,4 +41,4 @@ Route::get('/scraper/update', function() {
 });
 Auth::routes();
 
-Route::get('/home', 'AlertController@index')->name('home');
+
