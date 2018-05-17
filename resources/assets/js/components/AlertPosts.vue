@@ -4,7 +4,8 @@
             <div class="alert-item alert-name" v-text="alertName"></div>
             <div class="alert-item alert-keyword">
                 <div v-text="keywords"></div>
-                <i :class="status"></i>
+                <i class="fas fa-plus" v-if="!open"></i>
+                <i class="fas fa-minus" v-if="open"></i>
             </div>
         </div>
         <div class="load-bar" v-if="isLoading">
@@ -12,17 +13,20 @@
             <div class="bar"></div>
             <div class="bar"></div>
         </div>
-        <div v-if="open" class="delete">
-            <a data-toggle="modal" :data-target="alertModal">
-                <button class="btn btn-outline-danger btn-sm">Delete</button>
-            </a>
+        <div v-if="open" class="delete-alert">
+            <button class="button is-danger is-outlined is-small" :data-target="alertId" @click="deleteModal = true">
+                <span>Delete</span>
+                <span class="icon is-small">
+                    <i class="fas fa-times"></i>
+                </span>
+            </button>
         </div>
         <transition-group name="fade">
-            <div v-if="open" v-for="post in posts" :key="post.id" class="match">
+            <div v-if="open" v-for="post in posts" :key="post.id" class="match box">
                 <div class="post">
                     <div class="post-elements">
                         <div class="post-title">
-                            <a :href="post.link" v-text="post.title" target="_blank"></a>
+                            <a class="title-link button is-primary" :href="post.link" v-text="post.title" target="_blank"></a>
                         </div>
                         <div class="post-item">
                             <span>Retailer:</span> {{ post.retailer }}
@@ -41,9 +45,9 @@
             </div>
         </transition-group>
         <div class="error" v-text="errors"></div>
-        <modal :id="alertName" title="Delete Alert">
+        <modal :id="alertId" title="Delete Alert" :active="deleteModal" @change="onChange">
             <div class="delete-confirmation">Are you sure you want to delete <span>{{ this.alertName }}</span> alert?</div>
-            <button @click="deleteAlert" class="btn btn-danger float-right">Delete</button>
+            <button @click="deleteAlert" class="button button-danger float-right">Delete</button>
         </modal>
     </div>
 </template>
@@ -55,21 +59,19 @@ export default {
                 posts: [],
                 isLoading: false,
                 errors: '',
-                status: '',
-                add: 'ion-android-add',
-                remove: 'ion-android-remove',
                 open: false,
+                deleteModal: false,
         }
     },
 
     computed: {
-        alertModal: function() {
-            return '#' + this.alertName
-        }
-    },
 
-    mounted: function() {
-        this.status = this.add
+        alertModal: function() {
+
+            return '#' + this.alertName
+
+        },
+        
     },
 
     props: ['alertId', 'alertName', 'keywords'],
@@ -77,13 +79,11 @@ export default {
     methods: {
 
         getAlertPosts() {
-            if (this.status === this.remove) {
-                this.status = this.add
+            if (this.open) {
                 this.open = false
                 return
             }
             this.open = true
-            this.status = this.remove
             this.isLoading = true
             axios.get('/alerts/results/'+this.alertId)
                     .then(results => {
@@ -111,11 +111,43 @@ export default {
 
 <style>
 
+.all-posts {
+    float: left;
+}
+
+.title-link {
+
+    width: 100%;
+
+}
+
+.box {
+
+    margin-bottom: .5em;
+
+}
+.match {
+
+    float: left;
+    width: 100%;
+
+}
+
+.delete-alert {
+
+    float: right;
+
+}
+
 .fade-enter-active {
+
     transition: opacity .5s;
+
 }
 
 .fade-enter {
+
     opacity: 0;
+
 }
 </style>

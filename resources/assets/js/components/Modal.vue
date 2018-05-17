@@ -1,21 +1,18 @@
 <template>
-  <div class="modal fade" :id="id" tabindex="-1" 
-        role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">{{ title }}</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
+  <div class="modal" :id="id" :class="{ 'is-active': show }">
+    <div class="modal-background"></div>
+    <div class="modal-card"> 
+        <div class="modal-card-head">
+          <p class="modal-card-title" v-text="title"></p>
+          <button type="button" class="delete" aria-label="Close" @click="close">
           </button>
         </div>
-        <div class="modal-body">
+        <div class="modal-card-body">
             <slot></slot>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="modal-card-foot">
+          <button type="button" class="button is-danger" data-dismiss="modal" @click="active = false">Close</button>
         </div>
-      </div>
     </div>
   </div>
 </template>
@@ -23,7 +20,27 @@
 <script>
 export default {
 
-    props: ['id','title'],
+    props: ['id','title', 'active'],
 
+    computed: {
+
+        show() {
+
+          return this.active
+
+        } 
+
+    },
+
+    methods: {
+
+      close() {
+      
+        this.active = false
+
+      }
+
+
+    }
 }
 </script>

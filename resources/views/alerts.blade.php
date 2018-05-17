@@ -1,9 +1,9 @@
 @extends('layout.layout')
 
 @section('content')
-<div class="jumbotron">
+<div class="box">
 
-    <h1>Alerts</h1>
+    <h1 class="title is-3">Alerts</h1>
 
     <div id="results">
         <div class="alert-list">
@@ -16,7 +16,7 @@
     </div>
 
     <a data-toggle="modal" data-target="#add-alert">
-        <div class="ion-android-add-circle add"></div>
+        <i class="fas fa-plus-circle add"></i>
     </a>
 
 </div>

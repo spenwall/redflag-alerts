@@ -1,6 +1,8 @@
-require('./bootstrap');
+require('bulma')
 
-window.Vue = require('vue');
+window.axios = require('axios')
+window.Vue = require('vue')
+
 import Alerts from './components/Alerts.vue'
 import Modal from './components/Modal.vue'
 import CreateAlert from './components/CreateAlert.vue'
@@ -12,4 +14,9 @@ Vue.component('create-alert', CreateAlert)
 
 const app = new Vue({
     el: '#app',
+
+    data: {
+        showBurger: false
+    }
+
 });

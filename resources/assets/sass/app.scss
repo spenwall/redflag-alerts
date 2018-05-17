@@ -5,12 +5,17 @@
 // Variables
 @import "variables";
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import '~bulma/sass/utilities/_all';
 
 .navbar-laravel {
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.navbar {
+  
+  margin-bottom: 10px;
+
 }
 
 .alert-name-title {
@@ -27,12 +32,8 @@
   grid-gap: 1px;
 }
 
-.match {
-  background-color: #fff;
-}
-
 .alert-item {
-  background-color: #179CD1;
+  background-color: $info;
   color: #fff;
   padding: 10px;
   font-size: 100%;
@@ -41,7 +42,7 @@
 }
 
 .alert-title {
-  background-color: #007486;
+  background-color:$link;
   color: #fff;
   padding: 10px 10px 5px 10px;
 }
@@ -54,7 +55,8 @@
 .add {
   font-size: 32px;
   float: right;
-  color: #007486;
+  margin-top: 5px;
+  color: $link;
 }
 
 #results {
@@ -79,15 +81,15 @@
   text-align: center;
 }
 .bar:nth-child(1) {
-  background-color: #da4733;
+  background-color: $red;
   animation: loading 3s linear infinite;
 }
 .bar:nth-child(2) {
-  background-color: #3b78e7;
+  background-color: $blue;
   animation: loading 3s linear 1s infinite;
 }
 .bar:nth-child(3) {
-  background-color: #fdba2c;
+  background-color: $yellow;
   animation: loading 3s linear 2s infinite;
 }
 @keyframes loading {
@@ -114,8 +116,11 @@
 
 .post-title {
   grid-column: span 2;
-  background-color: #cdf3f9;
   padding: 5px;
+
+  a {
+    color: white;
+  }
 }
 
 .post-item {
@@ -124,7 +129,7 @@
   }
 }
 
-.delete {
+.delete-alert {
   padding-right: 5px;
   margin: 3px;
 }

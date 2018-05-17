@@ -1,36 +1,62 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
-<div class="container">  
-<a class="navbar-brand" href="/">Redflag Deals Alerts</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+<nav class="navbar is-primary">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      Redflag Deal Alerts
+    </a>
+    
+  </div>
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav ml-auto">
-      <!-- Authentication Links -->
-      @guest
-          <li><a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a></li>
-          <li><a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a></li>
-      @else
-          <li class="nav-item dropdown">
-              <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                  {{ Auth::user()->name }} <span class="caret"></span>
-              </a>
+    <div class="navbar-burger burger" :class="{ 'is-active': showBurger }" data-target="nav-menu" @click="showBurger = !showBurger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
 
-              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <a class="dropdown-item" href="{{ route('logout') }}"
+  <div id="nav-menu" class="navbar-menu" :class="{ 'is-active': showBurger }">
+    
+    <div class="navbar-end">
+    @guest  
+    <div class="navbar-item">
+        <div class="field is-grouped">
+          <p class="control">
+            <a class="button is-info" href="{{ route('login') }}">
+              <span class="icon">
+                <i class="fas fa-sign-in-alt"></i>
+              </span>
+              <span>
+              {{ __('Login') }}
+              </span>
+            </a>
+          </p>
+          <p class="control">
+            <a class="button is-link" href="{{ route('register') }}">
+              <span>
+                  {{ __('Register') }}
+              </span>
+            </a>
+          </p>
+        </div>
+      </div>
+    </div>
+    @else
+    <div class="navbar-item">
+    <div class="field is-grouped">
+          <p class="control">
+            <a class="button is-info" href="{{ route('logout') }}"
                       onclick="event.preventDefault();
                                     document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
-                  </a>
-
-                  <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              <span class="icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+              <span>
+              {{ __('Logout') }}
+              </span>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                       @csrf
                   </form>
-              </div>
-          </li>
-      @endguest
-  </ul>
+          </p>
+    </div>
+    @endguest
   </div>
-</div>
 </nav>
