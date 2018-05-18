@@ -3,14 +3,13 @@
     <a class="navbar-item" href="/">
       Redflag Deal Alerts
     </a>
-    
-  </div>
-
     <div class="navbar-burger burger" :class="{ 'is-active': showBurger }" data-target="nav-menu" @click="showBurger = !showBurger">
       <span></span>
       <span></span>
       <span></span>
     </div>
+  </div>
+
 
   <div id="nav-menu" class="navbar-menu" :class="{ 'is-active': showBurger }">
     

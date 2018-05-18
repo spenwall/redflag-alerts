@@ -32,7 +32,6 @@ export default {
             name: '',
             keywords: '',
             errors: new Errors(),
-            update: updateView
         }
     },
 
@@ -43,7 +42,7 @@ export default {
             axios.post('/alerts', this.$data)
                 .then(response => {
                     this.onSuccess(response)
-                    app.updateAlerts()
+                    location.reload()
                 })
                 .catch(error => {
                     this.errors.record(error.response.data.errors)

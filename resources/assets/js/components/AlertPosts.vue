@@ -47,7 +47,7 @@
         <div class="error" v-text="errors"></div>
         <modal :id="alertId" title="Delete Alert" :active.sync="active"> 
             <div class="delete-confirmation">Are you sure you want to delete <span>{{ this.alertName }}</span> alert?</div>
-            <button @click="deleteAlert" class="button is-danger float-right">Delete</button>
+            <button @click="deleteAlert" class="button is-primary float-right">Delete</button>
         </modal>
     </div>
 </template>
@@ -139,5 +139,11 @@ export default {
 
     opacity: 0;
 
+}
+
+.delete-confirmation {
+
+    margin-bottom: 5px;
+    
 }
 </style>

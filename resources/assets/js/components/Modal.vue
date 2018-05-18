@@ -22,12 +22,6 @@ export default {
 
     props: ['id','title', 'active'],
 
-    data: {
-
-      show: this.active
-
-    },
-
     computed: {
 
         show: {

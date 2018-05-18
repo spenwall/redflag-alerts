@@ -2,7 +2,8 @@
 
 @section('content')
 <div class="container">
-        <div class="box">
+    <div class="column">
+        <div class="box column is-half is-offset-one-quarter">
             <div class="card">
                 <div class="card-header">
                     <div class="card-header-title">
@@ -72,5 +73,6 @@
                 </div>
             </div>
         <div>
+    </div>
 </div>
 @endsection

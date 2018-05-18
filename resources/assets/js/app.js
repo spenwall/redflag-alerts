@@ -16,6 +16,12 @@ Vue.component('add-alert', AddAlert)
 
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+
+    data: {
+    
+        showBurger: false
+
+    }
 
 });
