@@ -7,11 +7,11 @@
           <button type="button" class="delete" aria-label="Close" @click="close">
           </button>
         </div>
-        <div class="modal-card-body">
+            <div class="modal-card-body">
             <slot></slot>
         </div>
         <div class="modal-card-foot">
-          <button type="button" class="button is-danger" data-dismiss="modal" @click="active = false">Close</button>
+          <button type="button" class="button is-danger" data-dismiss="modal" @click="close">Close</button>
         </div>
     </div>
   </div>
@@ -22,11 +22,27 @@ export default {
 
     props: ['id','title', 'active'],
 
+    data: {
+
+      show: this.active
+
+    },
+
     computed: {
 
-        show() {
+        show: {
+          
+          get() {
 
-          return this.active
+            return this.active
+
+          },
+
+          set(value) {
+
+            this.$emit('update:active', value)
+
+          }
 
         } 
 
@@ -36,7 +52,7 @@ export default {
 
       close() {
       
-        this.active = false
+        this.show = false
 
       }
 

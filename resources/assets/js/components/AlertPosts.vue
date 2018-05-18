@@ -14,7 +14,7 @@
             <div class="bar"></div>
         </div>
         <div v-if="open" class="delete-alert">
-            <button class="button is-danger is-outlined is-small" :data-target="alertId" @click="deleteModal = true">
+            <button class="button is-danger is-outlined is-small" :data-target="alertId" @click="active = true">
                 <span>Delete</span>
                 <span class="icon is-small">
                     <i class="fas fa-times"></i>
@@ -45,9 +45,9 @@
             </div>
         </transition-group>
         <div class="error" v-text="errors"></div>
-        <modal :id="alertId" title="Delete Alert" :active="deleteModal" @change="onChange">
+        <modal :id="alertId" title="Delete Alert" :active.sync="active"> 
             <div class="delete-confirmation">Are you sure you want to delete <span>{{ this.alertName }}</span> alert?</div>
-            <button @click="deleteAlert" class="button button-danger float-right">Delete</button>
+            <button @click="deleteAlert" class="button is-danger float-right">Delete</button>
         </modal>
     </div>
 </template>
@@ -60,18 +60,8 @@ export default {
                 isLoading: false,
                 errors: '',
                 open: false,
-                deleteModal: false,
+                active: false,
         }
-    },
-
-    computed: {
-
-        alertModal: function() {
-
-            return '#' + this.alertName
-
-        },
-        
     },
 
     props: ['alertId', 'alertName', 'keywords'],

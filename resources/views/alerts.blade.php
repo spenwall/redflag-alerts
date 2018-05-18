@@ -11,18 +11,14 @@
             <div class="alert-title alert-keywords-title">Keyword</div>
         </div>
     
-        <alerts-view></alerts-view>
+        <alerts-view ref="alertsView"></alerts-view>
 
     </div>
 
-    <a data-toggle="modal" data-target="#add-alert">
-        <i class="fas fa-plus-circle add"></i>
-    </a>
+    <add-alert></add-alert>
 
 </div>
 
-<modal id="add-alert" title="Add alert">
-   <create-alert></create-alert> 
-</modal>
+
 
 @endsection
