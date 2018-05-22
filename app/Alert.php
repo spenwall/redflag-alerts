@@ -4,7 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Post;
-use App\Mail\PostFound;
+use App\Mail\AlertEmail;
+use Illuminate\Support\Facades\Mail;
 
 class Alert extends Model
 {
@@ -25,6 +26,6 @@ class Alert extends Model
         $this->posts()->attach($post);
 
         //email
-        \Mail::to($this->user)->send(new PostFound($this, $post));
+        Mail::to('dude.wallace@gmail.com')->send(new AlertEmail($this, $post));
     }
 }

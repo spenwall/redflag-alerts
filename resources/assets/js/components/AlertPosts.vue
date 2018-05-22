@@ -99,7 +99,16 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+
+.post-title {
+  grid-column: span 2;
+  padding-bottom: 5px;
+
+  a {
+    color: white;
+  }
+}
 
 .all-posts {
     float: left;
@@ -108,6 +117,7 @@ export default {
 .title-link {
 
     width: 100%;
+    justify-content: left;
 
 }
 
@@ -120,6 +130,7 @@ export default {
 
     float: left;
     width: 100%;
+    margin-bottom: 10px;
 
 }
 
