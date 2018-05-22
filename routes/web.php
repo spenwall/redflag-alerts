@@ -5,6 +5,7 @@ use App\Http\Controllers\AlertControllere;
 use App\Scraper;
 use App\Post;
 use App\Http\Controllers\AlertController;
+use App\Mail\PostFound;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,5 +41,4 @@ Route::get('/scraper/update', function() {
     echo 'Completed';
 });
 Auth::routes();
-
 

@@ -21,3 +21,18 @@ $factory->define(App\User::class, function (Faker $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+
+$factory->define(App\Post::class, function (Faker $faker) {
+    return [
+        'threadId' => $faker->uuid,
+        'title' => $faker->title,
+        'link' => $faker->url,
+        'dealLink' => $faker->url,
+        'price' => '5.00',
+        'savings' => '50%',
+        'retailer' => $faker->name,
+        'expiry' => $faker->dateTime
+        
+    ];
+});

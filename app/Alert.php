@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Post;
+use App\Mail\PostFound;
 
 class Alert extends Model
 {
@@ -19,13 +20,11 @@ class Alert extends Model
         return $this->belongsToMany(Post::class);
     }
     
-    public function addPosts()
+    public function addPostAndEmail($post)
     {
-        $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->get();
-        $postCount = $posts->count();
+        $this->posts()->attach($post);
 
-        foreach ($posts as $post) {
-            $alert->posts()->attach($post);
-        }
+        //email
+        \Mail::to($this->user)->send(new PostFound($this, $post));
     }
 }

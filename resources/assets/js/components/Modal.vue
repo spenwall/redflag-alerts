@@ -25,19 +25,13 @@ export default {
     computed: {
 
         show: {
-          
           get() {
-
             return this.active
-
           },
 
           set(value) {
-
             this.$emit('update:active', value)
-
           }
-
         } 
 
     },
@@ -45,12 +39,9 @@ export default {
     methods: {
 
       close() {
-      
         this.show = false
-
       }
-
-
+      
     }
 }
 </script>

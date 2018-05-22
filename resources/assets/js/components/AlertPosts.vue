@@ -22,7 +22,7 @@
             </button>
         </div>
         <transition-group name="fade">
-            <div v-if="open" v-for="post in posts" :key="post.id" class="match box">
+            <div v-if="open" v-for="post in posts" :key="post.id" class="match card">
                 <div class="post">
                     <div class="post-elements">
                         <div class="post-title">

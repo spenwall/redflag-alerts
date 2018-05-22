@@ -12,10 +12,9 @@
         </div>
     
         <alerts-view ref="alertsView"></alerts-view>
-
     </div>
 
-    <add-alert></add-alert>
+    
 
 </div>
 
