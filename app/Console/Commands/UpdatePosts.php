@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Post;
 use App\Scraper;
 use App\Alert;
+use Carbon\Carbon;
 
 class UpdatePosts extends Command
 {
@@ -42,9 +43,12 @@ class UpdatePosts extends Command
      */
     public function handle()
     {
+        $latestDate = Carbon::now()->subDays(2);
         //get last updated post
-        $last = Post::orderBy('id', 'desc')->first();
-        $latestDate = $last->created_at;
+        if (Post::all()->isNotEmpty()) {
+            $last = Post::orderBy('id', 'desc')->first();
+            $latestDate = $last->created_at;
+        }
         //scraper update
         $scraper = new Scraper();
         $scraper->storeNewPosts();

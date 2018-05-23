@@ -21,9 +21,17 @@ class Alert extends Model
         return $this->belongsToMany(Post::class);
     }
     
+
+    protected function postExists($postId)
+    {
+        return $this->posts->where('id', $postId)->isNotEmpty();
+    }
+
     public function addPost($post)
     {
-        $this->posts()->attach($post);
+        if (!$this->postExists($post->id)) {
+            $this->posts()->attach($post);
+        }
     }
 
     public function emailPost($post)
@@ -35,9 +43,11 @@ class Alert extends Model
     {
         $results = Post::search($this->keywords)->get(); 
         $filtered = $results->where('created_at', '>', $date);
-        foreach ($results as $post) {
-            $this->addPost($post);
-            $this->emailPost($post);
-        }
+
+        foreach ($filtered as $post) {
+                $this->addPost($post);
+                $this->emailPost($post);
+            }
+        
     }
 }

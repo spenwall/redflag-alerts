@@ -42,8 +42,9 @@ class Scraper extends Model
 
         $posts = $nodes->each(function ($node) {
             $moved = $node->filter('.moved')->count();
+            $sticky = $node->filter('.sticky')->count();
             $result = Post::where('threadId', $node->extract(['data-thread-id'])[0])->first();
-            if ($result || $moved) {
+            if ($result || $moved || $sticky) {
                 return;
             }
             $link = $node->filter('.topic_title_link')->link();

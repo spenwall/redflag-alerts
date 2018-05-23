@@ -1,5 +1,5 @@
 @component('mail::message')
-#Found a match for alert {{ $alert->name }}
+#Found a match for {{ $alert->name }}
 
 @component('mail::panel')
 {{ $post->title }}
