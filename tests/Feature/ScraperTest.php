@@ -23,7 +23,7 @@ class ScraperTest extends TestCase
     public function scrape_a_page_and_store_results_in_post()
     {
         $scraper = new Scraper();
-        $scraper->storeNewPost();
+        $scraper->storeNewPosts();
         
         $this->assertNotNull(Post::all());
     }

@@ -32,13 +32,20 @@ Route::get('/alerts/results/{alertId}', 'AlertController@results')->name('alert-
 Route::get('/scraper/refresh', function() {
     $scraper = new Scraper();
     $posts = Post::deleteAll();
-    $scraper->storeNewPost();
+    $scraper->storeNewPosts();
     echo 'Completed';
 });
 Route::get('/scraper/update', function() {
     $scraper = new Scraper();
-    $scraper->storeNewPost();
+    $scraper->storeNewPosts();
     echo 'Completed';
 });
 Auth::routes();
+
+Route::get('/mailtest', function() {
+    $user = Auth::user();
+    \Mail::to($user)->send(new PostFound);
+
+    return view('emails.post-found');
+});
 

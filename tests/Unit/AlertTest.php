@@ -47,7 +47,7 @@ class AlertTest extends TestCase
         $userAlert = $user->alerts->where('keywords', 'off')->first();
 
         $scraper = new Scraper();
-        $scraper->storeNewPost();
+        $scraper->storeNewPosts();
 
         $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->get();
         $postCount = $posts->count();

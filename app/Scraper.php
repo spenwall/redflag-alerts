@@ -7,6 +7,7 @@ use Goutte\Client;
 use App\User;
 use PHPUnit\Framework\Constraint\IsNull;
 use App\Post;
+use App\Alert;
 
 class Scraper extends Model
 {
@@ -14,7 +15,7 @@ class Scraper extends Model
     const HOT_DEALS = 'https://forums.redflagdeals.com/hot-deals-f9/';
     const QUERRY = '?rfd_sk=tt';
 
-    public function storeNewPost()
+    public function storeNewPosts()
     {
         for ($i = 1; $i < 5; $i++) {
             $pageNumber = '';
@@ -22,7 +23,6 @@ class Scraper extends Model
                 $pageNumber = $i .'/';
             }
             $page = self::HOT_DEALS . $pageNumber . self::QUERRY;
-            echo $page.'<br>';
             $client = new Client();
             $pageCrawler = $client->request('GET', $page);
             $linkNodes = $pageCrawler->filter('.row.topic');

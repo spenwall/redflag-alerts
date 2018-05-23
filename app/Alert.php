@@ -21,11 +21,23 @@ class Alert extends Model
         return $this->belongsToMany(Post::class);
     }
     
-    public function addPostAndEmail($post)
+    public function addPost($post)
     {
         $this->posts()->attach($post);
+    }
 
-        //email
-        Mail::to('dude.wallace@gmail.com')->send(new AlertEmail($this, $post));
+    public function emailPost($post)
+    {
+        Mail::to($this->user->email)->send(new AlertEmail($this, $post));
+    }
+
+    public function searchForNewPosts($date)
+    {
+        $results = Post::search($this->keywords)->get(); 
+        $filtered = $results->where('created_at', '>', $date);
+        foreach ($results as $post) {
+            $this->addPost($post);
+            $this->emailPost($post);
+        }
     }
 }
