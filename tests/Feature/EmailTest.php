@@ -28,10 +28,8 @@ class EmailTest extends TestCase
         ]);
         $post = factory(Post::class)->create();
         
-        $alert->addPostAndEmail($post);
+        $alert->emailPost($post);
         
         $this->assertEquals('one', 'one');
-       //a new matching post is found
-       //then an email is sent for notification 
     }
 }
