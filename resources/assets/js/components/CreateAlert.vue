@@ -17,8 +17,9 @@
             </div>
             <span class="help is-danger" v-if="errors.has('keywords')" v-text="errors.get('keywords')"></span>
         </div>
-        
-        <button type="submit" class="button is-primary float-right" :disabled="errors.any()">Submit</button>
+        <div class="submit-button">
+            <button type="submit" class="button is-primary float-right" :disabled="errors.any()">Submit</button>
+        </div>
     </form>
 </template>
 
@@ -42,7 +43,7 @@ export default {
             axios.post('/alerts', this.$data)
                 .then(response => {
                     this.onSuccess(response)
-                    location.reload()
+                    this.$emit('update')
                 })
                 .catch(error => {
                     this.errors.record(error.response.data.errors)
@@ -102,3 +103,13 @@ class Errors {
     }
 }
 </script>
+
+
+<style>
+
+.submit-button {
+    display: flex;
+    justify-content: flex-end;
+}
+</style>
+

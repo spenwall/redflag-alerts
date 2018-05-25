@@ -2,12 +2,13 @@
     <div>
         <div class="alerts">
             <alert-posts v-for="alert in alerts" :key="alert.id" 
+                    @update="update"
                     :alert-id="alert.id" 
                     :alert-name="alert.name" 
                     :keywords="alert.keywords">
             </alert-posts>
         </div>
-        <add-alert></add-alert>
+        <add-alert @update="update"></add-alert>
     </div>
 </template>
 
@@ -29,9 +30,19 @@ export default {
     },
 
     mounted() {
-       axios.get('/alerts/show')
-            .then(results => this.alerts = results.data)
-            .catch(e => this.errors = e) 
+        this.getAlerts() 
+    },
+
+    methods: {
+        update() {
+            this.getAlerts()
+        },
+
+        getAlerts() {
+            axios.get('/alerts/show')
+                .then(results => this.alerts = results.data)
+                .catch(e => this.errors = e)
+        }
     }
 }
 </script>

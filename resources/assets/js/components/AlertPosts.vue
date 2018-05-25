@@ -47,7 +47,9 @@
         <div class="error" v-text="errors"></div>
         <modal :id="alertId" title="Delete Alert" :active.sync="active"> 
             <div class="delete-confirmation">Are you sure you want to delete <span>{{ this.alertName }}</span> alert?</div>
-            <button @click="deleteAlert" class="button is-primary float-right">Delete</button>
+            <div class="delete-button">
+                <button @click="deleteAlert" class="button is-primary float-right">Delete</button>
+            </div>
         </modal>
     </div>
 </template>
@@ -89,7 +91,8 @@ export default {
         deleteAlert() {
             axios.get('/alerts/delete/'+this.alertId)
                     .then(results => {
-                        location.reload()
+                        this.active = false
+                        this.$emit("update")
                     })
                     .catch(e => {
                         $this.errors = 'Something went wrong please try again'
@@ -101,6 +104,14 @@ export default {
 
 <style lang="scss">
 
+.modal-card-foot {
+    justify-content: flex-end;
+}
+
+.delete-button {
+    display: flex;
+    justify-content: flex-end;
+}
 .post-title {
   grid-column: span 2;
   padding-bottom: 5px;

@@ -6,7 +6,7 @@
             </div>
         </a>
         <modal id="add-alert" title="Add alert" :active.sync="active">
-            <create-alert></create-alert> 
+            <create-alert @update="update"></create-alert> 
         </modal>
     </div>
 </template>
@@ -29,6 +29,13 @@ export default {
             active: false
 
         }
+    },
+
+    methods: {
+        update() {
+            this.$emit('update')
+            this.active = false
+        }
     } 
 }
 </script>
@@ -36,9 +43,8 @@ export default {
 <style>
 
 .add-alert {
-
-    display: grid;
-
+    display: flex;
+    flex-direction: row-reverse;
 }
 
 </style>

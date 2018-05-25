@@ -36,7 +36,8 @@ class Alert extends Model
 
     public function emailPost($post)
     {
-        Mail::to($this->user->email)->send(new AlertEmail($this, $post));
+        $results = Mail::to($this->user->email)->send(new AlertEmail($this, $post));
+        dd($results);
     }
 
     public function searchForNewPosts($date)
