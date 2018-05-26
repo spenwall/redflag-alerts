@@ -104,9 +104,7 @@ export default {
 
 <style lang="scss">
 
-.modal-card-foot {
-    justify-content: flex-end;
-}
+
 
 .delete-button {
     display: flex;
@@ -153,13 +151,13 @@ export default {
 
 .fade-enter-active {
 
-    transition: opacity .5s;
+    transition: height 1s;
 
 }
 
 .fade-enter {
 
-    opacity: 0;
+    height: 1em;
 
 }
 
