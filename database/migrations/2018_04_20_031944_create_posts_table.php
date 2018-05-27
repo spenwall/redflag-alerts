@@ -18,8 +18,8 @@ class CreatePostsTable extends Migration
             $table->integer('threadId');
             $table->string('title');
             $table->string('post_date')->nullable();
-            $table->string('link');
-            $table->string('dealLink')->nullable();
+            $table->longText('link');
+            $table->longText('dealLink')->nullable();
             $table->string('price')->nullable();
             $table->string('savings')->nullable();
             $table->string('retailer')->nullable();
