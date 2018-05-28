@@ -14503,6 +14503,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         getAlertPosts: function getAlertPosts() {
             var _this = this;
 
+            this.errors = '';
             if (this.open) {
                 this.open = false;
                 return;
@@ -14621,19 +14622,23 @@ var render = function() {
                     _c("div", { staticClass: "post-item" }, [
                       _c("span", [_vm._v("Price:")]),
                       _vm._v(
-                        " $" + _vm._s(post.price) + "\n                    "
+                        " " + _vm._s(post.price) + "\n                    "
                       )
                     ]),
                     _vm._v(" "),
-                    _c("div", { staticClass: "post-item" }, [
-                      _c("span", [
-                        _c(
-                          "a",
-                          { attrs: { href: post.dealLink, target: "_blank" } },
-                          [_vm._v("Deal Link")]
-                        )
-                      ])
-                    ])
+                    post.dealLink
+                      ? _c("div", { staticClass: "post-item" }, [
+                          _c("span", [
+                            _c(
+                              "a",
+                              {
+                                attrs: { href: post.dealLink, target: "_blank" }
+                              },
+                              [_vm._v("Deal Link")]
+                            )
+                          ])
+                        ])
+                      : _vm._e()
                   ])
                 ])
               ])

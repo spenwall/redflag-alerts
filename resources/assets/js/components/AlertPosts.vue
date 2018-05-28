@@ -35,9 +35,9 @@
                             <span>Savings:</span> {{ post.savings }}
                         </div>
                         <div class="post-item">
-                            <span>Price:</span> ${{ post.price }}
+                            <span>Price:</span> {{ post.price }}
                         </div>
-                        <div class="post-item">
+                        <div class="post-item" v-if="post.dealLink">
                             <span><a :href="post.dealLink" target="_blank">Deal Link</a></span>
                         </div>
                     </div>
@@ -71,6 +71,7 @@ export default {
     methods: {
 
         getAlertPosts() {
+            this.errors = ''
             if (this.open) {
                 this.open = false
                 return
