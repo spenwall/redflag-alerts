@@ -14418,7 +14418,7 @@ exports = module.exports = __webpack_require__(1)(false);
 
 
 // module
-exports.push([module.i, "\n.delete-button {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n.post-title {\n  grid-column: span 2;\n  padding-bottom: 5px;\n}\n.post-title a {\n    color: white;\n}\n.all-posts {\n  float: left;\n}\n.title-link {\n  width: 100%;\n  -webkit-box-pack: left;\n      -ms-flex-pack: left;\n          justify-content: left;\n}\n.box {\n  margin-bottom: .5em;\n}\n.match {\n  float: left;\n  width: 100%;\n  margin-bottom: 10px;\n}\n.delete-alert {\n  float: right;\n}\n.fade-enter-active {\n  -webkit-transition: height 1s;\n  transition: height 1s;\n}\n.fade-enter {\n  height: 1em;\n}\n.delete-confirmation {\n  margin-bottom: 5px;\n}\n", ""]);
+exports.push([module.i, "\n@-webkit-keyframes spinAround {\nfrom {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\nto {\n    -webkit-transform: rotate(359deg);\n            transform: rotate(359deg);\n}\n}\n@keyframes spinAround {\nfrom {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n}\nto {\n    -webkit-transform: rotate(359deg);\n            transform: rotate(359deg);\n}\n}\n.results {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-orient: vertical;\n  -webkit-box-direction: normal;\n      -ms-flex-direction: column;\n          flex-direction: column;\n}\n.no-results {\n  padding: 10px;\n  color: #ff3860;\n}\n.delete-button {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-pack: end;\n      -ms-flex-pack: end;\n          justify-content: flex-end;\n}\n.post-title {\n  grid-column: span 2;\n  padding-bottom: 5px;\n}\n.post-title a {\n    color: white;\n}\n.all-posts {\n  float: left;\n}\n.title-link {\n  width: 100%;\n  -webkit-box-pack: left;\n      -ms-flex-pack: left;\n          justify-content: left;\n}\n.box {\n  margin-bottom: .5em;\n}\n.match {\n  float: left;\n  width: 100%;\n  margin-bottom: 10px;\n}\n.delete-alert {\n  float: right;\n}\n.fade-enter-active {\n  -webkit-transition: height 1s;\n  transition: height 1s;\n}\n.fade-enter {\n  height: 1em;\n}\n.delete-confirmation {\n  margin-bottom: 5px;\n}\n", ""]);
 
 // exports
 
@@ -14485,6 +14485,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -14493,7 +14498,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             isLoading: false,
             errors: '',
             open: false,
-            active: false
+            active: false,
+            empty: true
         };
     },
 
@@ -14508,10 +14514,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.open = false;
                 return;
             }
+            this.empty = false;
             this.open = true;
             this.isLoading = true;
             axios.get('/alerts/results/' + this.alertId).then(function (results) {
                 _this.posts = results.data;
+                if (_this.posts.length == 0) {
+                    _this.empty = true;
+                }
                 _this.isLoading = false;
             }).catch(function (e) {
                 _this.errors = 'Something went wrong please try again or contact the web admin';
@@ -14571,85 +14581,109 @@ var render = function() {
           ])
         : _vm._e(),
       _vm._v(" "),
-      _vm.open
-        ? _c("div", { staticClass: "delete-alert" }, [
-            _c(
-              "button",
-              {
-                staticClass: "button is-danger is-outlined is-small",
-                attrs: { "data-target": _vm.alertId },
-                on: {
-                  click: function($event) {
-                    _vm.active = true
-                  }
-                }
-              },
-              [_c("span", [_vm._v("Delete")]), _vm._v(" "), _vm._m(0)]
-            )
-          ])
-        : _vm._e(),
-      _vm._v(" "),
       _c(
-        "transition-group",
-        { attrs: { name: "fade" } },
-        _vm._l(_vm.posts, function(post) {
-          return _vm.open
-            ? _c("div", { key: post.id, staticClass: "match card" }, [
-                _c("div", { staticClass: "post" }, [
-                  _c("div", { staticClass: "post-elements" }, [
-                    _c("div", { staticClass: "post-title" }, [
-                      _c("a", {
-                        staticClass: "title-link button is-primary",
-                        attrs: { href: post.link, target: "_blank" },
-                        domProps: { textContent: _vm._s(post.title) }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "post-item" }, [
-                      _c("span", [_vm._v("Retailer:")]),
-                      _vm._v(
-                        " " + _vm._s(post.retailer) + "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "post-item" }, [
-                      _c("span", [_vm._v("Savings:")]),
-                      _vm._v(
-                        " " + _vm._s(post.savings) + "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "post-item" }, [
-                      _c("span", [_vm._v("Price:")]),
-                      _vm._v(
-                        " " + _vm._s(post.price) + "\n                    "
-                      )
-                    ]),
-                    _vm._v(" "),
-                    post.dealLink
-                      ? _c("div", { staticClass: "post-item" }, [
-                          _c("span", [
-                            _c(
-                              "a",
-                              {
-                                attrs: { href: post.dealLink, target: "_blank" }
-                              },
-                              [_vm._v("Deal Link")]
-                            )
-                          ])
-                        ])
-                      : _vm._e()
+        "div",
+        { staticClass: "results" },
+        [
+          _vm.open
+            ? _c("div", { staticClass: "delete-alert" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "button is-danger is-outlined is-small",
+                    attrs: { "data-target": _vm.alertId },
+                    on: {
+                      click: function($event) {
+                        _vm.active = true
+                      }
+                    }
+                  },
+                  [_c("span", [_vm._v("Delete")]), _vm._v(" "), _vm._m(0)]
+                )
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "transition-group",
+            { attrs: { name: "fade" } },
+            _vm._l(_vm.posts, function(post) {
+              return _vm.open
+                ? _c("div", { key: post.id, staticClass: "match card" }, [
+                    _c("div", { staticClass: "post" }, [
+                      _c("div", { staticClass: "post-elements" }, [
+                        _c("div", { staticClass: "post-title" }, [
+                          _c("a", {
+                            staticClass: "title-link button is-primary",
+                            attrs: { href: post.link, target: "_blank" },
+                            domProps: { textContent: _vm._s(post.title) }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "post-item" }, [
+                          _c("span", [_vm._v("Retailer:")]),
+                          _vm._v(
+                            " " +
+                              _vm._s(post.retailer) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "post-item" }, [
+                          _c("span", [_vm._v("Savings:")]),
+                          _vm._v(
+                            " " +
+                              _vm._s(post.savings) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "post-item" }, [
+                          _c("span", [_vm._v("Price:")]),
+                          _vm._v(
+                            " " +
+                              _vm._s(post.price) +
+                              "\n                        "
+                          )
+                        ]),
+                        _vm._v(" "),
+                        post.dealLink
+                          ? _c("div", { staticClass: "post-item" }, [
+                              _c("span", [
+                                _c(
+                                  "a",
+                                  {
+                                    attrs: {
+                                      href: post.dealLink,
+                                      target: "_blank"
+                                    }
+                                  },
+                                  [_vm._v("Deal Link")]
+                                )
+                              ])
+                            ])
+                          : _vm._e()
+                      ])
+                    ])
                   ])
+                : _vm._e()
+            })
+          ),
+          _vm._v(" "),
+          _vm.open && _vm.empty
+            ? _c("div", { staticClass: "no-results card" }, [
+                _c("div", { staticClass: "is-danger" }, [
+                  _vm._v("No Results Were Found")
                 ])
               ])
-            : _vm._e()
-        })
+            : _vm._e(),
+          _vm._v(" "),
+          _c("div", {
+            staticClass: "error",
+            domProps: { textContent: _vm._s(_vm.errors) }
+          })
+        ],
+        1
       ),
-      _vm._v(" "),
-      _c("div", {
-        staticClass: "error",
-        domProps: { textContent: _vm._s(_vm.errors) }
-      }),
       _vm._v(" "),
       _c(
         "modal",
