@@ -31,23 +31,26 @@ class Alert extends Model
     {
         if (!$this->postExists($post->id)) {
             $this->posts()->attach($post);
+            return true;
         }
+        return false;
     }
 
     public function emailPost($post)
     {
-        $results = Mail::to($this->user->email)->send(new AlertEmail($this, $post));
-        dd($results);
+        Mail::to($this->user->email)->send(new AlertEmail($this, $post));
     }
 
     public function searchForNewPosts($date)
     {
         $results = Post::search($this->keywords)->get(); 
-        $filtered = $results->where('created_at', '>', $date);
+        $newPostsOnly = $results->where('created_at', '>', $date);
 
-        foreach ($filtered as $post) {
-                $this->addPost($post);
-                $this->emailPost($post);
+        foreach ($newPostsOnly as $post) {
+                $addedNewPost = $this->addPost($post);
+                if ($addedNewPost) {
+                    $this->emailPost($post);
+                }
             }
         
     }

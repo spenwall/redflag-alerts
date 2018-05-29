@@ -144,46 +144,33 @@ export default {
 }
 
 .title-link {
-
     width: 100%;
     justify-content: left;
-
 }
 
 .box {
-
     margin-bottom: .5em;
-
 }
-.match {
 
+.match {
     float: left;
     width: 100%;
     margin-bottom: 10px;
-
 }
 
 .delete-alert {
-
     float: right;
-
 }
 
 .fade-enter-active {
-
     transition: opacity 1s;
-
 }
 
 .fade-enter {
-
     opacity: 0;
-
 }
 
 .delete-confirmation {
-
     margin-bottom: 5px;
-    
 }
 </style>
