@@ -171,13 +171,13 @@ export default {
 
 .fade-enter-active {
 
-    transition: height 1s;
+    transition: opacity 1s;
 
 }
 
 .fade-enter {
 
-    height: 1em;
+    opacity: 0;
 
 }
 
