@@ -58,7 +58,6 @@ class Scraper extends Model
     {
         $client = new Client();
         $post = $client->click($link);
-        echo $post->filter('#thread')->count();
         if (!$post || !$post->filter('#thread')->count()) {
             return null;
         }
