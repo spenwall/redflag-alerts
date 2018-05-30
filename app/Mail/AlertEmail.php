@@ -34,7 +34,7 @@ class AlertEmail extends Mailable
     public function build()
     {
         return $this->subject($this->post->title)
-                ->from('rfd.alert@rfd.spencerwallace.ca', 'RFD Alert')
+                ->from('alert@rfd.spencerwallace.ca', 'RFD Alert')
                 ->markdown('emails.alert');
     }
 }
