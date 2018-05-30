@@ -27,7 +27,7 @@
                     <div class="post">
                         <div class="post-elements">
                             <div class="post-title">
-                                <a class="title-link button is-primary" :href="post.link" v-text="post.title" target="_blank"></a>
+                                <a class="title-link" :href="post.link" v-text="post.title" target="_blank"></a>
                             </div>
                             <div class="post-item">
                                 <span>Retailer:</span> {{ post.retailer }}
@@ -132,7 +132,8 @@ export default {
 }
 .post-title {
   grid-column: span 2;
-  padding-bottom: 5px;
+  padding: 5px;
+  background-color: $blue;
 
   a {
     color: white;
