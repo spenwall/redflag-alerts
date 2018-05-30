@@ -1,15 +1,19 @@
-@extends('layouts.app')
+@extends('layout.layout')
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="column">
+        <div class="box column is-half is-offset-one-quarter">
             <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+                <div class="card-header">
+                    <div class="card-header-title">
+                    {{ __('Reset Password') }}
+                    </div>
+                </div>
 
-                <div class="card-body">
+                <div class="card-content">
                     @if (session('status'))
-                        <div class="alert alert-success">
+                        <div class="help is-link">
                             {{ session('status') }}
                         </div>
                     @endif
@@ -17,23 +21,21 @@
                     <form method="POST" action="{{ route('password.email') }}">
                         @csrf
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+                        <div class="field">
+                            <label for="email" class="label">{{ __('E-Mail Address') }}</label>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
+                            <input id="email" type="email" class="input form-control{{ $errors->has('email') ? ' is-danger' : '' }}" name="email" value="{{ old('email') }}" required>
 
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                            @if ($errors->has('email'))
+                                <span class="help is-danger">
+                                    {{ $errors->first('email') }}
+                                </span>
+                            @endif
                         </div>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                        <div class="field">
+                            <div>
+                                <button type="submit" class="button is-primary">
                                     {{ __('Send Password Reset Link') }}
                                 </button>
                             </div>
