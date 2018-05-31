@@ -41,6 +41,19 @@
                         </div>
 
                         <div class="field">
+                            <label for="phone" class="label">{{ __('Phone') }}</label>
+
+                            <input id="phone" type="tel" class="input {{ $errors->has('phone') ? ' is-danger' : '' }}" 
+                                name="phone" value="{{ old('phone') }}" required>
+
+                            @if ($errors->has('phone'))
+                                <p class="help is-danger">
+                                    {{ $errors->first('phone') }}
+                                </p>
+                            @endif
+                        </div>
+
+                        <div class="field">
                             <label for="password" class="label">{{ __('Password') }}</label>
 
                             <input id="password" type="password" class="input {{ $errors->has('password') ? ' is-danger' : '' }}" name="password" required>
