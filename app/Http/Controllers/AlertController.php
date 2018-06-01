@@ -71,7 +71,7 @@ class AlertController extends Controller
         $alert->save();
         $user = $user->fresh();
         $alerts = $user->alerts;
-        return view('alerts', ['alerts' => $alerts]);
+        return $alerts;
     }
 
     /**

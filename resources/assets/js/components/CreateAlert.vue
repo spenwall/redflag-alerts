@@ -39,7 +39,6 @@ export default {
     methods: {
 
         onSubmit() {
-            
             axios.post('/alerts/store', this.$data)
                 .then(response => {
                     this.onSuccess(response)

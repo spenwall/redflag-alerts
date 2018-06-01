@@ -1,11 +1,11 @@
 <template>
     <div class="add-alert">
-        <a data-toggle="modal" data-target="#add-alert" @click="active = true">
+        <a data-toggle="modal" data-target="#add-alert-modal" @click="active = true">
             <div class="tooltip tooltip-right" data-tooltip="Add Alert">
-                <i class="fas fa-plus-circle add"></i>
+                <i id="add-alert" class="fas fa-plus-circle add"></i>
             </div>
         </a>
-        <modal id="add-alert" title="Add alert" :active.sync="active">
+        <modal id="add-alert-modal" title="Add alert" :active.sync="active">
             <create-alert @update="update"></create-alert> 
         </modal>
     </div>
@@ -18,16 +18,12 @@ import CreateAlert from './CreateAlert.vue'
 export default {
     
     components: {
-
         'create-alert': CreateAlert
-
     }, 
 
     data() {
         return {
-
             active: false
-
         }
     },
 

@@ -14801,16 +14801,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
 
     components: {
-
         'create-alert': __WEBPACK_IMPORTED_MODULE_0__CreateAlert_vue___default.a
-
     },
 
     data: function data() {
         return {
-
             active: false
-
         };
     },
 
@@ -15078,7 +15074,7 @@ var render = function() {
       _c(
         "a",
         {
-          attrs: { "data-toggle": "modal", "data-target": "#add-alert" },
+          attrs: { "data-toggle": "modal", "data-target": "#add-alert-modal" },
           on: {
             click: function($event) {
               _vm.active = true
@@ -15091,7 +15087,11 @@ var render = function() {
       _c(
         "modal",
         {
-          attrs: { id: "add-alert", title: "Add alert", active: _vm.active },
+          attrs: {
+            id: "add-alert-modal",
+            title: "Add alert",
+            active: _vm.active
+          },
           on: {
             "update:active": function($event) {
               _vm.active = $event
@@ -15116,7 +15116,12 @@ var staticRenderFns = [
         staticClass: "tooltip tooltip-right",
         attrs: { "data-tooltip": "Add Alert" }
       },
-      [_c("i", { staticClass: "fas fa-plus-circle add" })]
+      [
+        _c("i", {
+          staticClass: "fas fa-plus-circle add",
+          attrs: { id: "add-alert" }
+        })
+      ]
     )
   }
 ]
