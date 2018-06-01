@@ -85,7 +85,7 @@ export default {
             this.empty = false
             this.open = true
             this.isLoading = true
-            axios.get('/alerts/results/'+this.alertId)
+            axios.get('/alerts/posts/'+this.alertId)
                     .then(results => {
                         this.posts = results.data
                         if (this.posts.length == 0) {
@@ -126,10 +126,6 @@ export default {
     color: $red;
 }
 
-.delete-button {
-    display: flex;
-    justify-content: flex-end;
-}
 .post-title {
   grid-column: span 2;
   padding: 5px;

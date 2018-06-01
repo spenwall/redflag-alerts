@@ -39,7 +39,7 @@ export default {
         },
 
         getAlerts() {
-            axios.get('/alerts/show')
+            axios.get('/alerts')
                 .then(results => this.alerts = results.data)
                 .catch(e => this.errors = e)
         }

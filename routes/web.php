@@ -18,34 +18,12 @@ use App\Mail\PostFound;
 |
 */
 
-Route::get('/home', 'AlertController@index')->name('home');
-Route::get('/', 'AlertController@index')->name('home');
+Route::get('/', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->name('home');
 
-Route::get('/alerts/create', 'AlertController@create')->name('create-alert');
-Route::get('/alerts', 'AlertController@index')->name('alerts');
-Route::get('/alerts/show', 'AlertController@show')->name('show');
-Route::post('/alerts', 'AlertController@store')->name('store-alert');
+Route::get('/alerts', 'AlertController@alerts')->name('alerts');
+Route::post('/alerts/store', 'AlertController@store')->name('store-alert');
 Route::get('/alerts/delete/{alertId}', 'AlertController@delete')->name('delete-alert');
-Route::get('/alerts/results/{alertId}', 'AlertController@results')->name('alert-results');
+Route::get('/alerts/posts/{alertId}', 'AlertController@posts')->name('alert-posts');
 
-
-Route::get('/scraper/refresh', function() {
-    $scraper = new Scraper();
-    $posts = Post::deleteAll();
-    $scraper->storeNewPosts();
-    echo 'Completed';
-});
-Route::get('/scraper/update', function() {
-    $scraper = new Scraper();
-    $scraper->storeNewPosts();
-    echo 'Completed';
-});
 Auth::routes();
-
-Route::get('/mailtest', function() {
-    $user = Auth::user();
-    \Mail::to($user)->send(new PostFound);
-
-    return view('emails.post-found');
-});
-

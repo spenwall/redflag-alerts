@@ -21,31 +21,16 @@ class AlertController extends Controller
     }
     
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Respons
-     */
-    public function index()
-    {
-        //
-        $user = Auth::user();
-        $alerts = $user->alerts;
-
-        
-        return view('alerts', ['alerts' => $alerts, 'duplicate' => false]);
-    }
-
-    /**
-     * get the results for an alert
+     * get the posts for an alert
      * 
      */
-    public function results($alertId)
+    public function posts($alertId)
     {
         if (is_null(Alert::find($alertId))) {
             return ['error' => 'Alert Not Found'];
         }
         $alert = Alert::find($alertId);
-        
+
         return Post::search($alert->keywords)->get();
     }
 
@@ -54,16 +39,6 @@ class AlertController extends Controller
         $user = Auth::user();
 
         return Alert::where(['user_id' => $user->id, 'id' => $alertId])->delete();
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('create-alert');
     }
 
     /**
@@ -76,7 +51,7 @@ class AlertController extends Controller
     {
         $user = Auth::user();
 
-        //validate
+        //validate requried and unique
         $request->validate([
             'name' => ['required',
                         Rule::unique('Alerts')->where(function ($query) use($user){
@@ -90,7 +65,6 @@ class AlertController extends Controller
                         ]
         ]);
 
-        //check for duplicates too
         $alert = new Alert(['name' => $request->name, 
                             'user_id' => $user->id, 
                             'keywords' => $request->keywords]);
@@ -101,12 +75,12 @@ class AlertController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return the users alerts as json
      *
      * @param  \App\Alert  $alert
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function alerts()
     {
         $user = Auth::user();
         
@@ -120,29 +94,6 @@ class AlertController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit(Alert $alert)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Alert  $alert
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Alert $alert)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Alert  $alert
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Alert $alert)
     {
         //
     }
