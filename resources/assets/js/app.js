@@ -1,4 +1,5 @@
 require('bulma')
+require('animate.css')
 
 window.axios = require('axios')
 window.Vue = require('vue')

@@ -22,7 +22,9 @@
                     </span>
                 </button>
             </div>
-            <transition-group name="fade">
+            <transition-group name="fade"
+                enter-active-class="animated fadeInRight"
+                leave-active-class="animated fadeOutLeft">
                 <div v-if="open" v-for="post in posts" :key="post.id" class="match card">
                     <div class="post">
                         <div class="post-elements">
