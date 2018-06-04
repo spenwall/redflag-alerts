@@ -89,15 +89,18 @@ export default {
             this.isLoading = true
             axios.get('/alerts/posts/'+this.alertId)
                     .then(results => {
-                        this.posts = results.data
+                        this.posts = results.data;
                         if (this.posts.length == 0) {
-                            this.empty = true
+                            this.empty = true;
                         }
-                        this.isLoading = false
+                        this.isLoading = false;
                     })
                     .catch(e => {
-                        this.errors = 'Something went wrong please try again or contact the web admin'
-                        this.isLoading = false
+                        if (e.response.status === 401) {
+                            window.location.replace('/');
+                        }
+                        this.errors = 'Something went wrong please try again or contact the web admin';
+                        this.isLoading = false;
                     })
         },
 

@@ -44,8 +44,11 @@ export default {
                     this.onSuccess(response)
                     this.$emit('update')
                 })
-                .catch(error => {
-                    this.errors.record(error.response.data.errors)
+                .catch(e => {
+                    if (e.response.status === 401) {
+                            window.location.replace('/');
+                        }
+                    this.e.record(error.response.data.errors);
                 })
         },
 

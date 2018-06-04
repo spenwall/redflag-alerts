@@ -41,7 +41,12 @@ export default {
         getAlerts() {
             axios.get('/alerts')
                 .then(results => this.alerts = results.data)
-                .catch(e => this.errors = e)
+                .catch(e => {
+                    if (e.response.status === 401) {
+                            window.location.replace('/');
+                        }
+                    this.errors = e;
+                });
         }
     }
 }

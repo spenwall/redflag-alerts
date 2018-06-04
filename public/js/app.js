@@ -14322,7 +14322,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             axios.get('/alerts').then(function (results) {
                 return _this.alerts = results.data;
             }).catch(function (e) {
-                return _this.errors = e;
+                if (e.response.status === 401) {
+                    window.location.replace('/');
+                }
+                _this.errors = e;
             });
         }
     }
@@ -14522,6 +14525,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 _this.isLoading = false;
             }).catch(function (e) {
+                if (e.response.status === 401) {
+                    window.location.replace('/');
+                }
                 _this.errors = 'Something went wrong please try again or contact the web admin';
                 _this.isLoading = false;
             });
@@ -14882,8 +14888,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             axios.post('/alerts/store', this.$data).then(function (response) {
                 _this.onSuccess(response);
                 _this.$emit('update');
-            }).catch(function (error) {
-                _this.errors.record(error.response.data.errors);
+            }).catch(function (e) {
+                if (e.response.status === 401) {
+                    window.location.replace('/');
+                }
+                _this.e.record(error.response.data.errors);
             });
         },
         onSuccess: function onSuccess(response) {
