@@ -12,11 +12,22 @@ class AlertTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function can_create_a_alert()
+    public function can_create_an_alert()
     {
         $alert = new Alert();
 
         $this->assertInstanceOf(Alert::class, $alert);
+    }
+
+    /** @test */
+    public function can_add_a_post_to_alert()
+    {
+        $post = new Post();
+        $alert = new Alert();
+
+        $alert->addPost($post);
+
+        $this->asertEquals($alert->posts[0] = $post);
     }
 
     /** @test */
