@@ -1,7 +1,7 @@
 language: php
 
 php: 
- - 7.2
+ - 7.1
 
 before_script:
  - cp .env.travis .env
@@ -10,5 +10,6 @@ before_script:
 
 script:
  - php artisan key:generate
+ - touch database/database.sqlite
  - php artisan migrate
  - vendor/bin/phpunit
