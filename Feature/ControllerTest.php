@@ -17,7 +17,7 @@ class ControllerTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $response = $this->actingAs($user)->get('/alerts');
+        $response = $this->actingAs($user)->get('/home');
 
         $response->assertStatus(200);
         $response->assertSee($alert->keywords);
