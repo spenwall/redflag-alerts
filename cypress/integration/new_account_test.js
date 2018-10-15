@@ -6,7 +6,6 @@ describe('My First Test', function () {
         //act
         cy.get('#name').type('Spencer Test')
         cy.get('#email').type('test10@gmail.com')
-        cy.get('#phone').type(4035557373)
         cy.get('#password').type('testpassword')
         cy.get('#password-confirm').type('testpassword')
         cy.get('button[type=submit]').click() 
