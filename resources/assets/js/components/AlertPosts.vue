@@ -22,9 +22,6 @@
                     </span>
                 </button>
             </div>
-            <transition-group name="fade"
-                enter-active-class="animated fadeInRight"
-                leave-active-class="animated fadeOutLeft">
                 <div v-if="open" v-for="post in posts" :key="post.id" class="match card">
                     <div class="post">
                         <div class="post-elements">
@@ -46,7 +43,6 @@
                         </div>
                     </div>
                 </div>
-            </transition-group>
             <div class="no-results card" v-if="open && empty">
                 <div class="is-danger">No Results Were Found</div>
             </div> 
