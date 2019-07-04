@@ -18,3 +18,9 @@ RUN php -r "unlink('composer-setup.php');"
 RUN a2enmod rewrite
 
 COPY ./apache.conf /etc/apache2/sites-enabled/000-default.conf
+COPY ./ /var/www/html 
+
+RUN cd /var/www/html
+RUN composer install 
+
+RUN php artisan key:generate
