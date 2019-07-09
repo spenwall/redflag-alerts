@@ -24,7 +24,7 @@ class Scraper extends Model
                 $pageNumber = $i .'/';
             }
             $page = self::HOT_DEALS . $pageNumber . self::QUERRY;
-            $guzzleClient = new GuzzleHttpClient(['verify' => true]);
+            $guzzleClient = new GuzzleHttpClient(['verify' => false]);
             $client = new Client();
             $client->setClient($guzzleClient);
             $pageCrawler = $client->request('GET', $page);
