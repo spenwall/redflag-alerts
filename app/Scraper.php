@@ -8,6 +8,7 @@ use App\User;
 use PHPUnit\Framework\Constraint\IsNull;
 use App\Post;
 use App\Alert;
+use GuzzleHttp\Client as GuzzleHttpClient;
 
 class Scraper extends Model
 {
@@ -23,7 +24,9 @@ class Scraper extends Model
                 $pageNumber = $i .'/';
             }
             $page = self::HOT_DEALS . $pageNumber . self::QUERRY;
+            $guzzleClient = new GuzzleHttpClient(['verify' => true]);
             $client = new Client();
+            $client->setClient($guzzleClient);
             $pageCrawler = $client->request('GET', $page);
             $linkNodes = $pageCrawler->filter('.row.topic');
             $posts = $this->getPostInfo($linkNodes);
