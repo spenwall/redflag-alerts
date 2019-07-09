@@ -23,5 +23,3 @@ COPY ./ /var/www/html
 RUN cd /var/www/html
 RUN composer install 
 RUN chown -R www-data:www-data ./
-
-RUN php artisan key:generate
