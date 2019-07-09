@@ -11,6 +11,4 @@ before_script:
 
 script:
  - php artisan key:generate
- - touch database/database.sqlite
- - php artisan migrate
  - vendor/bin/phpunit
