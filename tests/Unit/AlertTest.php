@@ -35,34 +35,34 @@ class AlertTest extends TestCase
 
     } 
 
-    /** @test */
-    public function an_Alert_can_join_posts()
-    {
-        $user = factory(User::class)->create([
-            'email' => 'dude.wallace@gmail.com'
-        ]);
+    // /** @test */
+    // public function an_Alert_can_join_posts()
+    // {
+    //     $user = factory(User::class)->create([
+    //         'email' => 'dude.wallace@gmail.com'
+    //     ]);
 
-        $alert = factory(Alert::class)->create([
-            'user_id' => $user->id, 'keywords' => 'off'
-        ]);
+    //     $alert = factory(Alert::class)->create([
+    //         'user_id' => $user->id, 'keywords' => 'off'
+    //     ]);
 
-        $userAlert = $user->alerts->where('keywords', 'off')->first();
+    //     $userAlert = $user->alerts->where('keywords', 'off')->first();
 
-        $scraper = new Scraper();
-        $scraper->storeNewPosts();
+    //     $scraper = new Scraper();
+    //     $scraper->storeNewPosts();
 
-        $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->get();
-        $postCount = $posts->count();
+    //     $posts = Post::where('title', 'like', '%' . $userAlert->keywords . '%')->get();
+    //     $postCount = $posts->count();
 
-        foreach ($posts as $post) {
-            $alert->posts()->attach($post);
-        }
+    //     foreach ($posts as $post) {
+    //         $alert->posts()->attach($post);
+    //     }
 
-        $alertPosts = $alert->posts()->count();
+    //     $alertPosts = $alert->posts()->count();
 
-        $this->assertEquals($postCount, $alertPosts);
-        $this->assertContains('off', strtolower($alert->posts()->first()->title));
+    //     $this->assertEquals($postCount, $alertPosts);
+    //     $this->assertContains('off', strtolower($alert->posts()->first()->title));
 
-    }
+    // }
     
 }
