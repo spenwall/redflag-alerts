@@ -42,7 +42,6 @@ class AlertTest extends TestCase
             'email' => 'dude.wallace@gmail.com'
         ]);
 
-        var_dump($user);
         $alert = factory(Alert::class)->create([
             'user_id' => $user->id, 'keywords' => 'off'
         ]);
