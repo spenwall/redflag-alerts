@@ -27,3 +27,9 @@ Route::get('/alerts/delete/{alertId}', 'AlertController@delete')->name('delete-a
 Route::get('/alerts/posts/{alertId}', 'AlertController@posts')->name('alert-posts');
 
 Auth::routes();
+Route::get(
+    '/debug-sentry',
+    function () {
+        throw new Exception('My first Sentry error!');
+    }
+);
